@@ -1,0 +1,114 @@
+윤해서
+[ java 1강 - 3일차 테스트]
+
+1.  연산의 경우 형변환 규칙
+1) int 형보다 크기가 작은 자료형은 (     int형으로 변환되어 연산됨       )  
+2) int 형보다 크거나 같은 자료형은 (       연산되는 숫자(?)들 중 표현 가능 범위가 더 큰 쪽에 맞춰짐         )
+
+
+2. int 변수, float 변수, byte 변수를 선언하고, 임의의 값을 할당한 후
+결과값을 받는 변수를 선언하여 (int변수 + float변수 + byte변수) 연산하기
+~>
+int a = 10;
+float b = 0.1F;
+byte c = 1;
+
+float d = 11.1f; 
+
+
+3. float 변수를 선언하고, 임의의 값을 할당한 후, long 변수에 다시 할당하기
+float fl = 1.1f;
+long lo = (long)fl;
+
+
+
+4. 다음 코드를 완성하시오
+char ch = 'g';
+(        int a = ch;                        )          //ch의 유니코드 값을  임의의 변수에  할당
+(           char b = (char)(ch+1)                  )  //ch에 1을 더한 값을 char 변수에 할당
+
+int i = 68;
+(           char c = (char)i                     ) //i 변수 값에 해당하는 문자를 임의의 변수에 할당;
+
+
+5. 문자열을 정수로 형변환하기 위해서는 어떻게 해야 하나?
+Integer.parseInt() 사용
+
+
+6. 정수를 문자열로 형변환하기 위해서는 어떻게 해야 하나?
+Integer.toString()사용
+
+
+7. 다음 코드를 완성하시오
+String s = "4560";
+int k = (   Integer.parseInt(s);       )
+
+
+8. 다음 코드를 완성하시오
+int k = 378;
+String s = (    Integer.toString(k);       )
+
+
+9. 다음은 정수에 대한 ( 16  ) 진수 표현이다.
+int n1=0x2AF; 
+
+다음은 정수에 대한 (  8  )진수 표현이다.
+int n2 = 0371; 
+
+
+
+[ java 2강 -1차 테스트]
+
+1. 연산자의 우선순위를 완성하시오
+(   산술   ) > (  비교    ) > (  논리    ) > (   대입    )
+
+(   단항    ) > (  이항   ) > (   삼항   ) 
+
+2.  19를 3으로 나눈 나머지를 구하여 변수에 할당하시오. (나머지 연산자 이용)
+~> int a = 19%3;
+	 
+
+3. 증감 연산자를 이용한 예제이다. 어떤 값이 출력될지 예측하시오.
+
+int a=6, b=6;
+char ch='D';
+
+System.out.println("++b=>" +  ++b);  // 7
+System.out.println("a++=>" +  a++ + ", b++=>"+ b++  + ", ++a=>"+ ++a);  // 6 7 8
+System.out.println("ch++=>" +  ch++ + ", ch++ =>"+ ch++ + ", ++ch="+ ++ch);  // D E G
+
+System.out.println("a=" +a +", b="+ b+", ch="+ch); // 8 8 G
+
+
+4. 각각에 해당하는 비교 연산자를 쓰시오. 
+> 오른쪽보다 왼쪽이 더 크다		
+<오른쪽보다 왼쪽이 더 작다	
+>=오른쪽보다 왼쪽이 더 크거나 같다		
+<=오른쪽보다 왼쪽이 더 작거나 같다	
+== equal
+!= not equal		
+
+
+5. true는 false로,  false는 true로 변경하는 논리 부정 연산자를 쓰시오
+~> !
+
+
+
+6.  사용자로부터 밑변, 높이를 입력받아서 삼각형의 면적을 구하는 코드를 작성하시오.
+Scanner sc = new Scanner(System.in);
+
+float width = sc.nextFloat();
+float height = sc.nextFloat();
+
+float area = (width+height)/2;
+System.out.println(area);
+
+
+
+
+7. double형 변수 d의 값을 소수점 둘째 자리까지만 빼내서 출력하는 코드를 작성하시오
+d=  17.23456
+=> 17.23
+
+
+
