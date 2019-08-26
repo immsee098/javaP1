@@ -1,0 +1,172 @@
+[ java 2강 - 2차 테스트]
+
+
+1. 각각에 해당하는 비교 연산자를 쓰시오. 
+		크다 >
+		작다 <
+		크거나 같다 >=
+		작거나 같다 <=
+		같다 ==
+		같지 않다 !=
+
+
+2.  연산의 경우 형변환 규칙
+1) int 형보다 크기가 작은 자료형은 (          int 형으로                  )  
+2) int 형보다 크거나 같은 자료형은 (             연산되는 숫자 중 표현 가능 범위가 더 큰 쪽으로 맞춰진다              )
+
+
+3. 다음 코드를 완성하시오
+char ch = 'b';
+(      int a = ch;          )          //ch의 유니코드 값을  임의의 변수에  할당
+(      char b = (char)((int)ch + 1);         )  //ch에 1을 더한 값을 char 변수에 할당
+
+int i = 97;
+(      char c = (char)i   ) //i 변수 값에 해당하는 문자를 임의의 변수에 할당;
+
+
+4. 증감 연산자를 이용한 예제이다. 어떤 값이 출력될지 예측하시오.
+
+int i=6, k=6;
+		
+System.out.println(i++);   //6
+System.out.println(--i);     //6
+System.out.println(++k);  //7
+System.out.println(k--);    //7
+System.out.println(--k);    //5
+
+int m=i--;
+
+System.out.println("m="+m+", i=" +i +", k="+ k);  //m=6, i=5, k=5
+
+
+5. double형 변수 a의 값을 소수점 첫째 자리까지만 빼내서 출력하는 코드를 작성하시오
+a=  5.983
+=> 5.9
+
+double a=  5.983d;
+int b = (int)(a*10);
+float c = (float)b/10;
+System.out.println(c);
+
+
+
+6. 결과값이 true나 false가 나오는 연산자는 무엇인가?
+boolean(x)
+비교, 논리 연산자
+
+
+7. x 는 10보다 크거나 같고, 50보다 작거나 같다
+에 해당하는 조건식을 쓰시오.
+
+x>=10 && x<=50
+
+8. 피연산자들 중 하나라도 true가 있으면 결과가 true가 나오는 논리 연산자는?
+||
+
+
+9. 피연산자들 모두가 true여야  결과가 true가 나오는 논리 연산자는?
+&&
+
+
+10. 논리 연산자인 &&, || 를 Short-Circuit AND, OR 연산자라고 부른다
+이유는?
+두 값을 가지고 연산할 때 첫값만으로 참/거짓을 판단할 수 있으면 바로 거기서 연산을 끝내기 때문에 빠르다
+
+
+11. 곱셈연산 후 대입하라는 대입 연산자를 쓰시오
+a *= 1
+
+
+
+12. 대입연산자를 이용한 코드이다. sum+=5 가 무슨 의미인지 쓰고,
++ 연산자를 이용하여 동일한 수식으로 바꾸시오.
+
+int sum=0;
+sum+=5;   // 기존 sum에서 5를 더해 다시 sum에 대입
+	// sum = sum+5
+
+
+13. 다음 삼항 연산자를 설명하시오.
+변수 선언 = (조건문) ? 값1 : 값2
+조건문이 참이면 값1 실행, 거짓이면 값2 실행. 이 결과를 변수에 대입
+
+
+14. 위 삼항 연산자에서 변수와 값1, 값2는 (     데이터 타입이 동일해야     ) 한다.
+
+
+15. int 변수에 임의의 값을 넣고,  그 값이 홀수인지, 짝수인지 판별하여 출력해보시오.
+(삼항 연산자, %연산자 이용)
+int a =9;
+System.out.println((a%2==0) ? "짝수" : "홀수");
+  
+
+16. int 변수에 임의의 값을 넣고,  그 값이 홀수인지, 짝수인지 판별하여 출력해보시오.
+(if문 이용)
+int a = 10;
+int b = a%2;
+if(b==0) {
+	System.out.println("짝수");	
+} else {
+	System.out.println("홀수");	
+}
+
+
+17. 조건문인 if문의 형식을 쓰고, 어떻게 실행되는지 쓰시오
+if(조건식) {
+	문장
+} else {
+	문장2
+}
+
+
+
+
+
+18. x가 0보다 크거나 z가 0보다 크다 
+에 해당하는 조건식을 쓰시오.
+x>0 || z>0 
+
+
+
+
+19.   기본자료형에서 등가연산자(==)는 값을 비교하지만
+ 참조형에서 등가연산자는 (    주소값    )을 비교한다.
+ 문자열의 값을 비교하기 위해서는 String클래스의 (   equals()    ) 메소드를 이용한다.
+
+
+
+
+20. 성별이 1 이면 남자, 2이면 여자 출력하기
+1) if 문 이용하기
+int gender = 1;
+
+if (gender ==1) {
+	System.out.println("남자");
+} else if (gender==2) {
+	System.out.println("여자");
+} else {
+	System.out.println("??");
+}
+	
+	
+2) 삼항연산자 이용하기
+System.out.println((gender==1) ? "남자" : ((gender==2) ? "여자" : "??"));
+	
+
+21. if문을 이용하여 성별이 1 이나 3이면 남자, 2나 4이면 여자 출력하기
+if (gender==1 || gender==3) {
+	System.out.println("남자");
+} else if (gender == 2 || gender==4){
+	System.out.println("여자");
+}
+	
+
+
+22. 조건식으로 표현하시오
+1) 문자열 참조변수 str이 "yes"일 때 true인 조건식
+
+String str = "yes";
+boolean bool = str.equals("yes") ? true : false;
+System.out.println(bool);
+
+str.equals("yes") 또는 "yes".equals(yes)
