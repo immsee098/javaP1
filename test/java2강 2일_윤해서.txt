@@ -1,0 +1,172 @@
+윤해서
+[ java 2강 - 3차 테스트]
+
+1. 중첩 if 문의 형식을 쓰고, 설명하시오.
+if문이 중복 사용됨
+If (조건문) 
+{ 
+	if (조건문 ) 
+		명령문1; 
+	else 
+		명령문2; 
+	}
+
+2. switch문은 언제 사용하는 것이 좋고, 어떤 경우에만 사용 가능한가?
+비교조건이 많고 값이 정해져있고 비교연산을 하지 않는 경우에만
+
+
+3. switch 문의 제어변수에는 ( byte, short, int, char   ) 자료형만 사용가능하나
+jdk7.0 이상에서는  (   String  ) 도 사용가능하다.
+
+
+
+4. case 문의 끝에는 항상 (  break  ) 이 있어야 한다.
+
+
+
+5. 다음 코드가 무슨 의미인지 설명하시오
+String res="";
+
+switch(n)
+{
+	case 1:
+	case 2:
+	case 3:
+		res = "best";
+		break;	
+}
+
+
+n에 1, 2, 3이 대입되었을 때 res 변수에 "best"가 할당된다
+
+
+6. static 메서드 (  앞에 static이 붙은 함수 )를 호출하는 방법은 
+(   클래스이름  ).메서드명() 이고, instance 메서드 ( 앞에 static이 붙지 않은 함수 )를 호출하는 방법은
+(    참조변수     ).메서드명() 이다.
+
+
+7. switch 문의 형식을 쓰고 설명하시오.
+switch(변수) 
+{ 
+	case 값1 : 
+		문장1; 
+		break; 
+	case 값2 : 
+		문장2; 
+		break; 
+	default : 
+		문장; 
+} 
+변수에 해당되는 값이 나올 때까지 아래로 내려가며 없으면 default값의 문장이 실행된다
+
+
+8.   반복문은 반복적인 작업을 수행할 때 사용한다. 
+그 중 for문은 지정된 횟수만큼 반복해서 실행하는 구문인데, 
+for문은 주로 어떤 경우에 사용하나?
+
+반복 횟수가 정해져 있을 때
+
+
+
+9. for문의 형식을 쓰고, 설명하시오
+for (초기식; 조건식; 증감식) { 
+	문장; 
+}
+
+10. 10~ 50 까지 홀수 출력하기
+for(int i = 10; i<51; i+=2) {
+	System.out.println(i+2);
+}
+
+
+
+11. 구구단 5단을 출력하라
+for(int i = 1; i<10; i++){
+	System.out.println("5*"+i+"="+(5*i));
+}
+
+
+12. 조건식으로 표현하시오
+1) int 형 변수 i가 200보다 크거나 같고 500보다 작거나 같을 때 true인 조건식
+if (i>=200 && i<=500) {}
+
+2) char형 변수 ch가 공백이나 탭이 아닐 때 true인 조건식
+if (ch != ' ' || ch != '\t') {}
+
+3) char형 변수 ch가 'y' 또는 'Y'일 때 true인 조건식
+if (ch = 'y' || ch == 'Y') {}
+
+4) boolean형 변수 powerOn이 false일 때 true인 조건식
+if(!powerOn) {}
+
+5) 문자열 참조변수 lang이 "java"일 때 true인 조건식
+if (lang.equals("java")) {}
+
+6) char형 변수 a가 숫자(‘0’~‘9’)일 때 true인 조건식
+if (a>='0' && a<='9') {}
+
+7) char형 변수 ch가 영문자(대문자 또는 소문자)일 때 true인 조건식
+if (Character.toUpperCase(ch) >= 'A' && Character.toUpperCase(ch) <= 'Z') {}
+
+8) int형 변수 year가 400으로 나누어 떨어지거나 또는 4로 나누어 떨어지고 100으로 나누어 떨어지지 않을 때
+true인 조건식
+if ( (year %400==0 || year%4 == 0) && year%100 != 0) {}(x)
+year %400==0 || (year%4 == 0 && year%100 != 0)
+
+
+
+13.  증감 연산자를 이용한 예제이다. 어떤 값이 출력될지 예측하시오.
+int i=3;
+		
+System.out.println(i++ +", i++ => "+i);    	// 3 , i++ => 4
+System.out.println(++i);			// 5
+System.out.println("i="+i);			// i= 5
+
+int k=++i; 6
+int n=i--; 5 (x) 6
+		
+if(++i >= 10)
+{
+	System.out.println("i는 10 이상!!");           // false
+}
+
+System.out.println("i="+i+", k=" +k +", n="+ n);  // i=6, k=6, n= 6
+
+
+14. float형 변수 b의 값을 소수점 세째 자리까지만 빼내서 출력하는 코드를 작성하시오
+b=  2.78965
+=> 2.789
+
+float b = 2.78965f;
+int c = (int)(b*1000);
+float d = (float)c/1000;
+System.out.println(d);
+
+
+
+15. 결과값이 true나 false가 나오는 연산자는 무엇인가?
+비교 논리 연산자
+
+
+16.   기본자료형에서 등가연산자(==)는 값을 비교하지만
+ 참조형에서 등가연산자는 (   주소값    )을 비교한다.
+ 문자열의 값을 비교하기 위해서는 String클래스의 (  equals  ) 메소드를 이용한다.
+
+
+
+17.  for문을 이용해 아래와 같이 출력되도록 코딩하시오
+
+for (i = 7; i>-4; i -=2){
+	if(i>0) {
+		System.out.println(i + ": hi");
+	} else {
+		System.out.println(i + ": 안녕");
+	}
+}
+
+7:   hi
+5:   hi
+3:   hi
+1:   hello
+-1:  안녕
+-3:  안녕
