@@ -1,0 +1,131 @@
+[ java 2강 - 4차 테스트]
+
+1. static 메서드 (  앞에 static이 붙은 함수 )를 호출하는 방법은 
+(   클래스명  ).메서드명() 이고, instance 메서드 ( 앞에 static이 붙지 않은 함수 )를 호출하는 방법은
+(   참조변수 ).메서드명() 이다.
+
+
+2. 조건식으로 표현하시오
+1) int 형 변수 i가 10보다 크거나 0보다 작을 때 true인 조건식
+if (i>10 || i<0) {}
+
+2) char형 변수 ch가 공백이나 탭이 아닐 때 true인 조건식
+if !(ch == ' ' || ch == '\t') {}
+ch != '' && ch !='\t'
+
+3) boolean형 변수 powerOn이 false일 때 true인 조건식
+if(!powerOn) {}
+
+4) 문자열 참조변수 lang이 "java"일 때 true인 조건식
+if (lang.equals("java")) {}
+
+5) char형 변수 a가 숫자(‘0’~‘9’)일 때 true인 조건식
+if (a>='0' && a<='9') {}
+
+6) char형 변수 ch가 영문자(대문자 또는 소문자)일 때 true인 조건식
+if (Character.toUpperCase(ch) >= 'A' && Character.toUpperCase(ch) <= 'Z') {}
+
+7) int형 변수 year가 400으로 나누어 떨어지거나 또는 4로 나누어 떨어지고 100으로 나누어 떨어지지 않을 때
+true인 조건식
+year %400==0 || (year%4 == 0 && year%100 != 0)
+
+
+
+3. float형 변수 b의 값을 소수점 둘째 자리까지만 빼내서 출력하는 코드를 작성하시오
+b=  2.789
+=> 2.78
+float b = 2.78965f;
+int c = (int)(b*100);
+float d = (float)c/100;
+System.out.println(d);
+
+
+4. 결과값이 true나 false가 나오는 연산자는 무엇인가?
+비교, 논리 연산자
+
+
+5. 15~ 100 까지 짝수의 합 구하기
+int sum =0;
+for(int i=15; i<101; i+=2){
+	sum += (i+1);
+}
+System.out.println(sum);
+
+
+
+6. 구구단 8단을 역순으로 출력하라
+for(int i=9; i>0; i--) {
+	System.out.println(i+"*8 ="+i*8);
+}
+
+
+
+7. 중첩 for 문의 형식을 쓰고, 설명하시오
+for (초기식; 조건식; 증감식) 
+{ 
+	for(초기식; 조건식; 증감식)
+	{
+		명령문
+	}
+}
+for문 안에 다른 for문이 돌아가는 형식
+바깥 for가 참일 때 안쪽 for가 돌아ㅏ감
+
+
+8. 중첩 for 문을 이용하여 구구단을 세로로 출력하시오
+for(int i=1; i<10; i++){
+	for(int j=1; j<10; j++) {
+		System.out.println(i+"*"+j+"="+i*j);
+	}
+}
+
+
+
+
+9. for문을 이용한 무한루프의 형식을 쓰시오
+
+for(;;) {
+	명령문;
+}
+
+
+
+10. 사용자로부터 0 이 입력될 때까지 계속해서 정수를 입력받아서 합을 구한다. 
+0 이 입력되면, 지금까지 입력된 정수들의 합을 출력하는 프로그램을 작성하시오.
+(무한루프를 이용할 것)
+int sum = 0;
+for(;;) {
+	System.out.println("정수를 입력하세요");
+	int a = sc.nextInt();
+			
+	if(a==0) 
+	{
+		break;
+	}
+	sum += a;
+}
+System.out.println("합은 : " + sum);
+
+
+
+11. ( break ) 는 반복문이나 switch문의 case를 벗어날 때 사용하며
+무한 루프를 탈출할 때 종종 사용한다.
+
+
+
+12. 무한 루프를 빠져나올 때는 ( break ) 문을 사용해야 한다.
+ 
+
+13. 국어, 영어, 수학 점수를 입력 받아서, 평균을 구한 후, "합격", "불합격" 출력하기
+평균이 70 이상이고, 모든 과목이 50 이상이어야 합격
+평균이 70 이상이더라도, 한 과목이라도 50미만이면 과락
+평균이 70미만이면 불합격
+int kor = sc.nextInt();
+		int eng = sc.nextInt();
+		int math = sc.nextInt();
+		int aver = (kor+eng+math)/3; ~> double형으로 해서 3.0으로 나눠두댐
+		if(aver>=70) {
+			if(kor>=50 && eng>=50 && math>=50) {
+				System.out.println("합격");
+			} else {System.out.println("과락");}
+		} else {System.out.println("불합격");}
