@@ -1,0 +1,145 @@
+[ java 2강 - 5차 테스트]
+
+
+1. 조건식으로 표현하시오
+
+1) char형 변수 ch가 공백이나 탭이 아닐 때 true인 조건식
+ch != '' && ch !='\t'
+!(ch == '' || ch == '\t')
+
+2) 문자열 참조변수 lang이 "java"일 때 true인 조건식
+lang.equals("java")
+
+3) char형 변수 a가 숫자(‘0’~‘9’)일 때 true인 조건식
+a>='0' && a<='9'
+
+
+2. 국어, 영어, 수학 점수를 입력 받아서, 평균을 구한 후, "합격", "불합격" 출력하기
+평균이 70 이상이고, 모든 과목이 50 이상이어야 합격
+평균이 70 이상이더라도, 한 과목이라도 50미만이면 과락
+평균이 70미만이면 불합격
+int kor = sc.nextInt();
+int eng = sc.nextInt();
+int math = sc.nextInt();
+int aver = (kor+eng+math)/3; 
+if(aver>=70) {
+	if(kor>=50 && eng>=50 && math>=50) {
+		System.out.println("합격");
+	} else {System.out.println("과락");}
+} else {System.out.println("불합격");}
+
+
+3. while문의 형식을 쓰고, 설명하시오
+while(반복조건)
+{
+	반복할 문장;
+}
+
+
+4. 반복문 중 (   for  ) 문은 지정된 횟수만큼 반복해서 실행하는 구문으로
+ 반복 횟수가 미리 정해진 처리에 주로 사용하고,
+(   while   ) 문은 특정 조건을 주고 그 조건이 만족될 때까지 계속해서 반복시키는 구문으로
+반복 횟수가 가변적인 처리에 적합하다.
+또한, 조건이 거짓이더라도 실행구문을 최소한 한번은 수행하는 구문은 (   do~while     )문이다.
+
+
+5. while을 이용한 무한루프와 for문을 이용한 무한루프의 형식을 쓰시오
+whie(true){}
+
+for(;;){}
+
+
+6. 선 실행 후 조건 처리하는 반복문으로 조건보다 명령이 먼저 오는 구문인
+do while 문의 형식을 쓰고, 설명하시오
+
+do
+{
+	명령문;
+}
+while(조건식);
+
+do안의 명령문은 while의 조건식이 참이 아니라도 실행
+
+
+7. 사용자로부터 0 이 입력될 때까지 계속해서 정수를 입력받아서 합을 구한다. 
+0 이 입력되면, 지금까지 입력된 정수들의 합을 출력하는 프로그램을 작성하시오.
+(do ~ while 을 이용할 것)
+
+		Scanner sc = new Scanner(System.in);
+		int sum = 0;
+		int num = 0;
+		
+		do {
+			System.out.println("정수를 입력");
+			num = sc.nextInt();
+			sum += num;
+			
+		} while(num!=0);
+		
+		System.out.println(sum);
+
+
+
+
+
+8. (  break    ) 는 반복문이나 switch문의 case를 벗어날 때 사용하며
+무한 루프를 탈출할 때 종종 사용한다.
+(  continue  )는 루프의 나머지 뒷 부분을 무시하고 반복문의 선두로 점프하여 다음 루프를 실행한다.
+다음 반복위치로 이동하는 분기문으로 루프에서 특정 값에 대한 처리를 제외하고자 할 때 사용한다.
+
+ 
+9. if 문 이용 - 월을 입력 받아 해당하는 사분기를 출력하시오
+1 ~ 3월 : 1사분기, 
+4 ~ 6월 : 2사분기, 
+7 ~ 9월 : 3사분기,
+10 ~ 12월 : 4사분기,
+나머지 : 잘못 선택했어요
+
+		Scanner sc = new Scanner(System.in);
+		int month = sc.nextInt();
+		
+		if(month>=1 && month<=3) {
+			System.out.println("1사분기");
+		} else if(month>=4 && month<=6) {
+			System.out.println("2사분기");
+		} else if(month>=7 && month<=9) {
+			System.out.println("3사분기");
+		} else if(month>=10 && month<=12) {
+			System.out.println("4사분기");
+		} else {
+			System.out.println("잘못 입력하셨습니다");
+		}
+
+		
+
+10. 사용자로부터 입력 받은 문자열이 숫자인지를 판별하는 프로그램 작성하기
+반복문과 charAt(int i)를 이용해서 문자열의 문자를 하나씩 읽어서 검사한다.
+        Scanner sc = new Scanner(System.in);
+
+        String value = sc.nextLine();
+
+        boolean k = true;
+        
+        for(int i =0; i<value.length(); i++) {
+            char a = value.charAt(i);
+            if (a>=48 && a<=57) {
+                System.out.print("");
+            } else {
+                k = false;
+            } //~>반대로 해서 else 떼버리기
+        }
+
+        if (k) {
+            System.out.println(value+"은 숫자입니다");
+        } else {
+            System.out.println(value+"은 숫자가 아닙니다");
+        }
+
+
+11. 홀수 구구단만 (3,5,7,9단) 출력하는 프로그램을 작성하되, 
+3단은 3*3까지, 5단은 5*5까지, 7단은 7*7까지, 9단은 9*9까지만 출력하도록 구현한다
+		for(int i = 3; i<10; i+=2) {
+			for(int j=1; j<i+1; j++) {
+				System.out.println(i + "*" + j + "=" + i*j);
+			}
+		}
