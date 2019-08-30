@@ -1,0 +1,91 @@
+[ java 3강 - 1차 테스트]
+
+1. 메서드란
+
+자주 사용하는 기능을 묶은 단위
+
+2. 메서드명 다음에 나오는 괄호안에 위치하며, 메서드 외부에서 내부로 값을 전달하는 것으로
+메서드의 입력 값을 (    매개변수     )라고 하고, 
+작업을 마친 후의 결과를 호출자에게 돌려주는 값의 형태를 (   반환타입   ) 이라고 한다.
+
+
+3. 같은 클래스 안에 있는 메서드를 호출할 때는  (  매서드명   ) 으로 호출하고,
+다른 클래스 안에 있는 메서드를 호출할 때는 (    클래스.매서드명    )으로 호출한다.
+
+
+4. ( return )은 메서드의 실행을 종료하고 호출원으로 복귀하는 기능과
+메서드의 처리 결과를 호출원으로 돌려주는 기능도 한다.
+ 
+
+5. 반환값이 없는 메서드의 반환형은 ?    
+
+void
+
+6. return 키워드를 구문에 추가하여 호출한 곳으로 반환값을 반환하는데, 이때 몇 개의 값을 반환해 줄 수 있나?
+ 1개
+
+
+7. 두 수 중 더 큰 수를 구하는 메서드를 만들고,  
+main() 메서드에서 메서드를 호출하고, 그 결과를 출력하시오.
+	public static int compare(int a, int b) {
+		int result = 0;
+		if (a>=b) {
+			result = a;
+	} else {
+		result =b;
+	}
+		return result;
+		
+	}
+
+	public static void main(String[] args) {
+		System.out.println(compare(10,3));
+	}
+
+	
+
+8. 판매수량이 250 이상이면 판매금액의 30%, 150개 이상이면 20%, 150 미만이면 10% 로 
+성과급을 계산하는 메서드를 만들고, main() 에서 호출하고, 결과를 출력하시오.
+
+	public static float calc(int a, int b) {
+		float money = 0;
+		if(a>=250) {
+			money = (float)(a*b*0.3);
+		} else if(a>=150) {
+			money = (float)(a*b*0.2);
+		} else {
+			money = (float)(a*b*0.1);
+		}
+		return money;
+	}
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("판매수량, 판매금액 입력");
+		int a = sc.nextInt();
+		int b = sc.nextInt();
+		System.out.println("성과급 : " + calc(a,b));
+	}
+
+
+9. 월을 입력 받아 해당하는 사분기를 리턴하는 메서드를 만들고,
+main() 에서 호출하고, 결과를 출력하시오.
+1 ~ 3월 : 1사분기, 4 ~ 6월 : 2사분기, 
+7 ~ 9월 : 3사분기, 10 ~ 12월 : 4사분기
+
+	public static String monthVer(int a) {
+		String result = "";
+		if(a>=1 && a<=3) {
+			result = "1분기입니다";
+		} else if(a>=4 && a<=6) {
+			result = "2분기입니다";
+		} else if(a>=7 && a<=9) {
+			result = "3분기입니다";
+		} else if(a>=10 && a<=12) {
+			result = "4분기입니다";
+		} else {
+			result = "잘못입력";
+		}
+		
+		return result;
+	}
