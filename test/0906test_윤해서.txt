@@ -1,0 +1,186 @@
+[ java 6강 - 1차 테스트]
+
+
+
+1. 클래스의 멤버변수는 ( 각 객체별 )로 할당되어 객체의 고유한 속성을 저장한다.
+동작을 정의하는 메서드는 모든 객체마다 공유된다. 
+
+
+2. static변수(클래스 변수)란?
+하나만 생성되는 변수이며 모두가 공유하는 변수
+
+
+3. static 변수나 static 메서드는 사용시 (  클래스명  )으로 접근한다.
+
+
+4. static 변수가 초기화되는 시점은?
+메모리에 올라가는 순간
+
+
+5. static 변수(클래스 변수)의 복잡한 초기화에 사용되는 것은 무엇이고, 언제 수행되나?
+static 초기화 블럭
+
+6.  명시적 초기화를 통해 배열 arr을 생성하였다.
+(1) static 초기화블럭에서 배열의 각 요소들을 1~30까지 임의의 값으로 채우는 코드를 완성하시오.
+
+
+class StaticBlock{
+	static int[] arr = new int[10];
+	
+	(1)	static {
+		for(int i=0; i<arr.length; i++) {
+			arr[i] = (int)(Math.random()*30+1);
+		}
+	}
+
+}
+
+public class StaticBlockTest {		
+	public static void main(String[] args) {
+		for(int i=0;i<StaticBlock.arr.length;i++){
+			System.out.println(StaticBlock.arr[i]);
+		}//for
+	}
+	
+}//class
+
+
+7. 클래스 변수의 초기화 시점은?
+  
+클래스가 로딩될때
+
+
+8. 인스턴스 변수의 초기화 시점은?
+
+인스턴스가 생성될 때마다
+
+
+9. 클래스 변수의 초기화 순서를 쓰시오.
+
+default => 명시적 => static
+
+
+10. 인스턴스 변수의 초기화 순서를 쓰시오.
+
+default => 명시적 => 생성자
+
+
+11. ( 클래스  ) 변수는 항상 ( 인스턴스 ) 변수보다 먼저 생성되고 초기화 된다.
+
+
+12. static 메서드는 ( this  ) 가 없으므로 인스턴스 필드는 참조할 수 없다.
+클래스 소속의 (   static   ) 만 액세스할 수 있다.
+ 
+
+13. (1), (2)에 코드를 완성하시오.
+
+ class Calculator{
+	//static 메서드
+	public static int add(int a, int b){
+		int res = a+b;
+		return res;
+	}
+
+	//instance 메서드
+	public int minus(int a, int b){
+		return a-b;
+	}
+}//class
+
+class CalculatorTest1 {
+	public static void main(String[] args) {
+		//(1) add()메서드를  호출하시오.  (임의의 값 이용)
+		System.out.println(Calculator.add(10, 20));
+		
+		
+
+		//(2) minus() 메서드를 호출하시오.  (임의의 값 이용)
+		Calculator ca = new Calculator();
+		System.out.println(ca.minus(50, 10));
+	
+	}
+}
+
+
+14. 변수의 3가지 종류에 대해 각각 설명하시오. 해당 변수가 언제 생성되고, 소멸되는지도 설명하시오
+
+클래스 - 공유하는 변수. 하나만 생성. 클래스 로딩될때 생성- 프로그램 종료시 소멸
+인스턴스 - 각각 다른 곳에서 중복되어 사용가능. 인스턴스 만들때 생성 - 종료시 소멸 
+지역 - 특정 스코프 내에서만 돌아가는 변수. 밖에서는 사용불가. 함수 시작될때 생성-함수 종료시 소멸
+
+
+15. 학생은 10% 할인하는 분식점에서 판매가격 계산하기 (FoodSale 클래스 정의하기)
+멤버변수 - 메뉴, 수량, 단가, 판매가격
+static 변수- 할인률, 판매가격의 총합계
+기능
+1) 판매가격을 계산하는 기능
+할인금액 = 수량*단가*할인률
+판매가격 = 수량*단가-할인금액
+2) 판매가격의 총 합계를 구하는 기능
+
+import java.util.Scanner;
+
+class FoodSale {
+	private String menu;
+	private int qty;
+	private int price;
+	private int sold;
+	
+	static private float sale = 0.1f;
+	static private int totalPrice;
+	
+	FoodSale(String menu, int qty, int price) {
+		this.menu = menu;
+		this.qty = qty;
+		this.price = price;
+	}
+	
+	public void soldPrice() {
+		sold = qty*price - (int)(qty*price*sale);
+	}
+	
+	
+	public void findTotal() {
+		totalPrice += sold; 
+	}
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+	
+	public int getSoldPrice() {
+		return sold;
+	}
+ 	
+}
+
+
+public class FoodSaleTest {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			System.out.println("메뉴, 수량, 단가를 입력");
+			String menu = sc.nextLine();
+			int qty = sc.nextInt();
+			int price = sc.nextInt();
+			
+			FoodSale fs = new FoodSale(menu, qty, price);
+			fs.soldPrice();
+			fs.findTotal();
+			
+			System.out.println("판매금액= "+fs.getSoldPrice());
+			System.out.println("판매가격 총합계=" +fs.getTotalPrice());
+			
+			System.out.println("그만하시겠습니까?<q>");
+			sc.nextLine();
+			
+			String qq = sc.nextLine();
+			if(qq.equalsIgnoreCase("Q")) break;
+		}
+
+
+	}
+
+}
