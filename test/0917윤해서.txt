@@ -1,0 +1,292 @@
+[ java 9강 - 2차 테스트]
+
+1. instanceof 연산자는 실제 인스턴스를 알아보기 위해 사용하는데, 
+어떤 경우에도 결과가 true가 나오나?
+
+자식객체 instanceof 부모클래스 
+
+
+2.  출력 결과를 예측하시오.
+
+class BindingTest{
+	public static void main(String[] args) {
+		Parent p = new Child();
+		Child c = new Child();
+
+		System.out.println("p.x = " + p.x);  //(1)  p.x = 100
+						Child Method
+		p.method(); 
+
+		System.out.println("c.x = " + c.x);  //(2) c.x = 200
+						Child Method
+		c.method(); 
+	}
+}
+
+class Parent {
+	int x = 100;
+
+	void method() {
+		System.out.println("Parent Method");
+	}
+}
+
+class Child extends Parent {
+	int x = 200;
+
+	void method() {
+		System.out.println("Child Method");  
+	}
+}
+
+
+3. 코드를 완성하시오.
+
+class Person{
+	public String kind(){
+		return "사람";
+	}
+};
+class Student extends Person{
+	public String kind(){
+		return "학생";
+	}
+};
+class Graduate extends Student{
+	public String kind(){
+		return "대학원생";
+	}
+};
+class Assistant extends Person{
+	public String kind(){
+		return "조교";
+	}
+};
+class Professor extends Person{
+	public String kind(){
+		return "교수";
+	}
+}//
+
+class Polyargs{
+
+	public static void print(Person pe) {
+		if(pe instanceof Student) {
+			System.out.println(pe.kind() + " 이/가 등록합니다.");
+		} else if(pe instanceof Graduate) {
+			System.out.println(pe.kind() + " 이/가 등록합니다.");
+		} else if (pe instanceof Assistant) {
+			System.out.println(pe.kind() + " 이/가 등록합니다.");
+		}
+	}
+	
+
+	//(1) 위 주석 부분의 코드를 메서드 하나로 처리하시오.
+	
+
+
+	public static void main(String[] args){
+		Person son1 = new Student();
+		Person son2 = new Graduate();
+		Person son3 = new Assistant();
+		Person son4 = new Professor();
+		
+		print(son1);
+		print(son2);
+		print(son3);
+		print(son4);
+
+	}
+}//
+
+
+4.  코드를 완성하시오.
+
+class Animal{
+       public void bark(){
+		System.out.println("울다");
+       }
+       public void parent(){
+		System.out.println("난 부모-동물");
+       }
+}
+
+class Cat extends Animal{
+	public void bark(){
+		System.out.println("야옹야옹");
+	}
+	public void showCat()	{
+		System.out.println("난 자식-고양이");
+	}
+}
+class Cow extends Animal{
+	public void bark(){
+		System.out.println("음메음메");
+	}
+	public void showCow()	{
+		System.out.println("난 자식-소");
+	}
+}
+class Dog extends Animal{
+	public void bark(){
+		System.out.println("멍멍");
+	}
+	public void showDog()	{
+		System.out.println("난 자식-강아지");
+	}
+}
+
+
+class Polymo{
+    public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);	
+	System.out.println("1. 고양이, 2. 강아지, 3. 소 중에서 하나 선택!!");
+	int type = sc.nextInt();
+	
+	//(1) 다형성을 이용하여 해당 객체를 생성하고, 오버라이딩 메서드 호출
+q	Animal ani = null;
+	switch로 부르는거
+
+
+	//(2) 자식만의 메서드 호출
+
+
+	//(3) Animal 배열을 선언하고, 4개의 요소를 넣은 후 오버라이딩 메서드 호출
+
+
+
+	//(4) 모든 배열요소의 자식만의 메서드 호출
+
+
+
+	for (int i=0; i<arr.length; i++)	{
+		//(5) 자식만의 메서드를 호출하는 부분을 메서드로 만들어서 처리
+		callAnimal(arr[i]);
+
+	}//for
+    }	
+    
+    
+
+	
+}
+
+
+
+
+[ java 10강 - 1차 테스트]
+
+
+1. 추상 메서드에 대해 설명하시오
+자세한 구현 없이 틀만 있는 메서드
+
+
+2. 추상 메서드의 형식을 쓰시오.
+public abstract 매서드명
+
+
+3. 추상클래스에 대해 설명하시오
+추상메서드를 가지고 있는 클래스
+
+
+4. 추상클래스가 되는 방법 2가지를 설명하시오.
+1. 내부에 추상메서드가 있음
+2. 클래스 만들 때 abstract를 붙여서 만듦
+
+
+5.  추상 클래스는 (   상속   )의 관계를 형성하기 위한 상위 클래스로 
+인스턴스화시키기 위해서 정의한 클래스가 아닌 경우 추상 클래스로 만든다
+
+
+6.  추상 메서드는 (  오버라이딩   )의 관계를 형성하기 위해 정의된 메서드, 비어있는 메서드는 추상 메서드로 만든다
+
+
+7. 추상 클래스의 형식을 쓰시오.
+abstract class 클래스명
+
+
+8. 추상메서드를 포함하고 있는 추상클래스를 상속받는 자식클래스는 추상클래스가 가지고 있는 
+모든 추상메서드를 구현해 주어야만 (     객체  )를 생성할 수 있다.
+
+자식클래스에서 추상메서드를 모두 구현해 주지 않으면 자식클래스도 (      추상클래스 취급 받음        )
+
+
+
+
+9. 인터페이스에 대해 설명하시오.
+변수를 가질 수 없음
+메서드 목록만 가질 수 있음
+
+10. 인터페이스는 (   메서드  )와 (  멤버변수(상수)  )만을 멤버로 가질 수 있다
+
+
+11. 인터페이스의 멤버들의 제약사항에 대한 설명이다. ()안을 채우시오.
+ 모든 상수는 (   public static final     ) 이어야 하며, 이를 생략할 수 있다.
+ 모든 메서드는  (    public abstract    ) 이어야 하며, 이를 생략할 수 있다.
+
+
+12. 생략된 키워드를 쓰시오.
+
+interface PlayingCard{
+	final int DIAMOND = 3;  // public static
+	int CLOVER = 1;  // public static final
+	
+	String getCardKind();  //  public abstract
+}
+
+
+13. 인터페이스는 인스턴스를 생성할 수 (  없  )으며, 자신에 정의된 추상 메서드의 몸통을 만들어 주는 클래스를 작성해야 한다.
+인터페이스는 구현할 때(상속할 때) 키워드  (   implements   )를 사용한다.
+
+
+14. 구현하는 인터페이스의 메서드 중 일부만 구현한다면, (  추상 클래스    )로 선언되어야 한다.
+
+
+15. 상속과 구현을 동시에 할 수도 있다. 
+Unit 클래스의 상속과 Fightable 인터페이스의 구현을 동시에 하도록 코드를 완성하시오.
+
+class Fighter extends Unit implements Fightable
+{ 
+	 public void move(int x, int y){ ... }
+	 public void attack(unit u){ ... }
+}
+
+
+16. 맞으면 O, 틀리면 X 표시하시오.
+인터페이스는 인터페이스로부터만 상속받을 수 있으며,  다중상속이 가능하다 (  O )
+클래스는 단일상속, 다중상속 모두 가능하다. ( X ) 
+인터페이스들끼리는 다중상속과 단일 상속이 가능하다. ( O )
+인터페이스가 하나의 클래스가 되기 위해서는 반드시 모든 내부의 구현되지 않은 구성요소들을 전부 구현해야 한다. (  O  )
+하나의 클래스가 여러 개의 인터페이스를 상속받아 구현할 수 있다 ( O ) 
+
+
+17.  인터페이스끼리 상속할 때는 (  extends  ) 키워드를 사용한다.
+
+
+18. TV 인터페이스와 Computer 인터페이스를 상속받는 (구현하는) IPTV 클래스의 코드를 완성하시오.
+
+class IPTV implements TV implements Computer{}
+
+
+19. 자식 클래스에서 구현해야 하는 메서드를 나열하시오.
+
+interface IA{
+	void sayA();
+}
+interface IB{
+	void sayB();
+}
+interface IC extends IB{
+	void sayC();  
+}
+interface ID extends IA, IC {   
+	void sayD();
+}
+interface IM{
+	void sayM();
+}
+
+class Test implements ID, IM { 
+
+}
+~>> A, B, C, D, M
