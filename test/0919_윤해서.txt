@@ -1,0 +1,282 @@
+[ java 12강 - 1차 테스트]
+
+1. 예외란?
+프로그램 실행 시 보이는 오류
+
+2. 에러에는 컴파일 에러 (Compile Error)와  (  실행에러   )가 있는데,
+실행에러는 에러(Error)와 (  예외   ) 로 구분할 수 있다.
+
+
+3. 소스코드를 컴파일하는 과정에서 생기는 에러로 실행파일을 생성시키지 못하며,
+오타이거나 문법적 오류인 경우 발생하는 에러는 무엇인가?
+컴파일 에러
+
+
+4. 메모리 부족, 스택오버플로우와 같이 일단 발생하면 복구할 수 없는 심각한 오류를 무엇이라 하는가?
+에러
+
+
+5. 발생하더라도 수습될 수 있는 비교적 덜 심각한 오류로 프로그램의 비정상적인 종료를 막을 수 있는 에러를
+무엇이라 하는가?
+예외
+
+
+6. 예외처리(Exception Handling)란
+혹시 예외 상황이 발생할 것을 대비해 여분 코드를 만들어두는 것
+
+
+7. 예외 처리의 목적은 무엇인가?
+예외가 발생하여서 프로그램이 강제로 끝나는 것을 막기
+
+
+8. 예외처리 구문의 형식을 쓰시오.
+try{
+}
+catch()
+{
+} final{}
+
+
+
+9. 다음코드에서 예외가 발생하는 경우 실행 순서를 설명하시오.
+
+catch 구문으로 가서 "나눗셈 불가능"을 출력하고 예외의 이유 메시지 띄우고 catch 빠져나가서 프로그램을 종료한다.
+
+import java.util.Scanner;
+class DivideByZero
+{	
+	public static void main(String[] args)
+	{
+		System.out.print("두 개의  정수 입력: ");
+		Scanner sc=new Scanner(System.in);
+		int num1=sc.nextInt();
+		int num2=sc.nextInt();
+			
+		try
+		{
+			System.out.println("나눗셈 결과의 몫: "+(num1/num2));  //
+		}
+		catch(ArithmeticException e)  //
+		{
+			System.out.println("나눗셈 불가능");
+			System.out.println(e.getMessage());
+		}
+		
+		System.out.println("프로그램을 종료합니다.");  //
+
+	}
+}
+
+
+10. 9번문제에서 실행의 흐름이 catch 영역으로 이동하는 과정을 설명하시오.
+try에서 예외 발생 시 catch문으로 이동
+
+
+11. 예외상황이 발생한 이유를 담은 문자열을 반환하는 메소드는?
+e.getMessage()
+
+12. 다중 catch문이란?
+예외가 여러개 발생할 것을 대비해 catch문을 여러개 써서 각각 다르게 예외처리를 한 것
+
+13. 다중 catch문에서 Exception 계층구조가 오는 순서는?
+하위~>상위  자식~>부모
+
+14. 모든 예외의 기반 클래스는?
+Exception
+
+
+15. 예외발생 당시의 호출스택에 있었던 메서드의 정보와 예외 메시지를 화면에 출력하며,
+예외가 발생한 위치에 대한 정보와 예외가 발생해서 전달되는 과정을 출력하는 메서드는?
+printStackTrace
+
+
+16. 키워드 throw 는 언제 사용하나? 
+사용자가 예외를 임의로 발생시킬 때
+
+
+17. throw 사용 형식을 쓰시오.
+throw new Exception(" ~ ");
+
+
+18.  Exception 인스턴스를 생성할 때, 생성자에 String을 넣어 주면, 
+이 String이 Exception인스턴스에 메시지로 저장된다.
+이 메시지는 (  getMessage  ) 메서드를 이용해서 얻을 수 있다.
+
+
+19. 사용자로부터 주민번호를 입력 받아서, 14자리(예: 990101-2223333)가 아니면 throw 문을 이용하여 
+예외처리 되도록 처리하시오.
+import java.util.Scanner;
+
+public class Test1 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		try {
+			System.out.println("주민번호 입력");
+			String num = sc.nextLine();
+			
+			if(num.length()!=14) {
+				throw new Exception("주민번호는 14자리로");
+			}
+			System.out.println("주민번호 :"+num);
+		} catch(Exception e) {
+			System.out.println("예외 발생:"+e.getMessage());
+		}
+		
+
+	}
+
+}
+
+
+20. 예외 발생여부와 상관없이 반드시 실행되어야 하는 구문을 입력하는 곳으로,
+예외가 발생해도 호출되며, 그렇지 않아도 호출되는 구문은?
+finally
+
+
+21. 출력 결과를 예측하시오
+결과: 2/연산성공
+
+결과: 실패한 이유 뜸+ 연산 실패
+
+
+class FinallyTest{	
+	public static void main(String[] args){
+		boolean divOK=divider(4, 2);
+		if(divOK)
+			System.out.println("연산 성공\n");
+		else
+			System.out.println("연산 실패\n");
+		
+		divOK=divider(4, 0);
+		if(divOK)
+			System.out.println("연산 성공\n");
+		else
+			System.out.println("연산 실패\n");
+	}	
+
+	public static boolean divider(int num1, int num2)	{
+		try{
+			int result=num1/num2;
+			System.out.println("나눗셈 결과는 "+result);
+			return true;
+		}
+		catch(ArithmeticException e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+		finally{
+			System.out.println("finally 영역 실행");
+		}
+	}
+}
+
+
+
+
+
+22. 개발자의 실수에 의해서 발생할 수 있는 예외들로써, 예외처리를 하지 않아도 되는 Exception 클래스는?
+RuntimeException
+
+
+23. 예외를 처리하는 방법 2가지는?
+try~ catch
+throw를 이용해서 예외를 던지고 마지막에 받은 사람이 처리해버리기
+
+
+24. 메서드에 예외를 선언하는 형식을 쓰시오.
+메소드 이름() throws Exception~
+
+
+25. 기존의 정의된 예외 클래스 외에 필요에 따라 개발자가 새로운 예외 클래스를 정의하여 사용할 수 있다.
+이러한 사용자 정의 예외 클래스를 만드는 형식을 쓰시오.
+클래스명 extend Exception
+
+
+26. 주민번호 14자리(예: 990101-2223333)가 입력되지 않은 경우 예외를 발생시키는 코드를 작성하시오.
+1) 사용자 정의 예외 클래스 만들기
+2) 메서드에서 주민번호 입력 받기
+3) 메서드에서 예외발생
+4) main() 에서 작성한 메서드 호출
+
+class IdInputException extends Exception {
+	public IdInputException() {
+		super("유효하지 않은 주민등록번호 ");
+	}
+}
+
+public class Test3 {
+	
+	public static String idInput() throws IdInputException{
+		Scanner sc = new Scanner(System.in);
+		System.out.println("주민등록번호 입력");
+		String id = sc.nextLine();
+		
+		if(id.length()!=13) {
+			throw new IdInputException();
+		}
+		return id;
+	}
+
+	public static void main(String[] args) {
+		try {
+			String id = idInput();
+			System.out.println("주민등록번호:"+id);
+		} catch(IdInputException e) {
+			System.out.println("예외발생:"+e.getMessage());
+		}
+		System.out.println("\nnext");
+
+	}
+
+}
+
+
+
+27. 2의 배수 10개를 요소로 갖는 배열을 만든 후
+삭제하려는 인덱스를 입력받아 해당 요소를 삭제하는 코드를 완성하시오.
+(데이터의 삭제는 다음의 형태로 이루어진다
+배열의 중간에 저장된 데이터를 삭제할 경우, 해당 요소의 뒤에 저장된 요소들을 한 칸씩 앞으로 이동시키는 형태로 삭제를 진행한다.)
+
+package com.java0919;
+
+import java.util.Scanner;
+
+class  Exam{
+	public static void main(String[] args) 	{
+		//1) arr 배열 선언	
+		int[] arr = new int[10];
+		
+
+		int count=arr.length;  //실제 데이터 개수
+
+		//2) 2의 배수로 초기화 - for문 이용
+		for(int i=1; i<11; i++) {
+			arr[i-1] = i*2;
+		}
+
+
+		//삭제 전 배열 요소 출력
+		for(int n : arr){
+			System.out.println(n);
+		}
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("\n삭제하려는 인덱스를 입력하세요");
+		int delIdx=sc.nextInt();
+		
+		//3) 삭제 처리
+		for(int i=delIdx; i<count-1; i++) {
+			arr[i] = arr[i+1];
+		}
+		count = count-1;
+		
+		
+		//4) 삭제 후 배열 요소 출력
+		
+		for(int n: arr) {
+			System.out.println(n);
+		}
+	}
+}
+		
