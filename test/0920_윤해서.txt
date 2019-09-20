@@ -1,0 +1,265 @@
+[ java 13강 - 1차 테스트]
+
+1. 컬렉션(Collection)이란?
+데이터 저장을 위해 만들어둔 클래스
+
+
+2. 컬렉션 프레임워크의 핵심 인터페이스 3가지는?
+리스트, 셋, 맵
+
+3. 컬렉션 프레임워크의 핵심 인터페이스를 각각 설명하시오.
+리스트 - 순서 있는 데이터
+셋 - 순서 없고 중복 허용도 안됨
+맵 - 키/밸류 짝으로 이루어짐. 순서x, 밸류 한정으로 중복 허용
+
+4. Vector와 ArrayList는 (  Object )을 이용해서 데이터를 순차적으로 저장한다.
+첫번째로 저장한 객체는 (  Object  )의 0번째 위치에 저장되고 그 다음에 저장하는 객체는 1번째 위치에 저장된다.
+이런 식으로 계속 배열에 순서대로 저장되며, 배열에 더 이상 저장할 공간이 없으면 보다 큰 새로운 배열을 
+생성해서 기존의 배열에 저장된 내용을 새로운 배열로 복사한 다음에 저장된다.
+
+
+5. (  제네릭스   )는 컬렉션에 저장할 객체의 타입을 지정하여 
+지정한 타입의 객체만 해당 컬렉션에 저장할 수 있으며,
+꺼낼 때는 자동으로 형변환해준다.
+
+
+6. Boxing이란?
+기본 자료 데이터를 Wrapper로 감싸 참조처리 해주는 것
+
+
+7. Unboxing이란?
+위의 반대. 참조형을 기본형으로
+
+
+8. 오토박싱(autoboxing)이란?
+기본 자료형을 넣어도 알아서wrapper에 의해 감싸지는 것
+
+
+9. ArrayList에 float형 값을 4개 저장하고, 꺼내오는 코드를 작성하시오.
+1.7, 2.7, 3.7, 4.7 을 입력
+(입력시에는 for 문 이용, 출력시에는 for문과 확장 for문을 각각 이용하여 2번 출력)
+public class Test2 {
+
+	public static void main(String[] args) {
+		ArrayList<Float> arr = new ArrayList<Float>(4);
+		
+		for(int i=0; i<4; i++) {
+			arr.add((float)(i+1.7));
+		}
+		
+		for(int i=0; i<arr.size(); i++) {
+			System.out.println(arr.get(i));
+		}
+		
+		for(Float n: arr) {
+			System.out.println(n);
+		}
+
+	}
+
+}
+
+
+
+10. toString() 메서드가 자동으로 호출되는 경우 2가지를 쓰시오.
+1) System.out.println(); 에 들어가는 경우
+2) 객체간 +연산
+
+11. Emp 클래스를 정의하고
+1) 멤버변수 
+사원번호, 사원명, 급여
+2) 생성자, getter/setter, toStirng() 오버라이딩
+
+사용자로 부터 입력받아 ArrayList에 Emp 클래스를 3개 저장한 후,
+읽어와서 toString() 을 이용하여 화면 출력하는 코드를 작성하시오.
+출력시 for문과, 확장 for문을 이용하여 2번 출력하시오.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Emp {
+	private int staffNum;
+	private String staffName;
+	private int salary;
+	
+	Emp(int staffNum, String staffName, int salary){
+		this.staffNum = staffNum;
+		this.staffName = staffName;
+		this.salary = salary;
+	}
+	
+	int getNum() {
+		return staffNum;
+	}
+	
+	String getName() {
+		return staffName;
+	}
+	
+	int getSalary() {
+		return salary;
+	}
+	
+	void setNum(int staffNum) {
+		this.staffNum = staffNum;
+	}
+	
+	void setName(String staffName){
+		this.staffName = staffName;
+	}
+	
+	void setSalary(int salary) {
+		this.salary = salary;
+	}
+	
+	public String toString() {
+		return ("사원이름:"+staffName+", 사뭔번호:"+staffNum+", 급여:"+salary);
+	}
+	
+}
+
+public class Test3 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		ArrayList<Emp> arr = new ArrayList<Emp>(3);
+		
+		for(int i=0; i<3; i++) {
+			System.out.println("사원번호, 사원이름, 급여 입력");
+			int a = sc.nextInt();
+			sc.nextLine();
+			String b = sc.nextLine();
+			int c = sc.nextInt();
+			arr.add(new Emp(a, b, c));
+		}
+		
+		for(Emp n: arr) {
+			System.out.println(n.toString());
+		}
+
+	}
+
+}
+
+12. Set<E> 인터페이스를 구현하는 컬렉션 클래스인 HashSet에 대해 설명하시오.
+데이터 순서x, 중복은 허용x
+
+
+13. 컬렉션에 저장된 요소를 접근하는데 사용되는 인터페이스는 (     iterator   ) 이고,
+구 버전은  (   enumeratio  ) 이며, 컬렉션 프레임워크가 만들어지기 이전에 사용하던 것이다.
+
+
+14. () 에 들어갈 공통된 메서드는?
+Collection 인터페이스에는 Iterator(Iterator를 구현한 클래스의 인스턴스)를 반환하는 
+(    iterator()    ) 메서드를 정의
+컬렉션 클래스에 대해 ( iterator()  ) 를 호출하여 Iterator를 얻은 다음 반복문을 사용해서 
+컬렉션 클래스의 요소들을 읽어 올 수 있다.
+
+
+15.  Iterator 인터페이스의 (  hasNext()    ) 메서드는 읽어 올 요소가 남아있는지 확인한다. 
+있으면 true, 없으면 false를 반환한다.
+(    next()    ) 메서드는 다음 요소를 읽어온다.
+
+
+16. Map<K, V> 인터페이스를 구현하는 컬렉션 클래스는 (   HashMap   ) 이다.
+ Map에 대해 설명하시오.
+키-밸류 형식으로 데이터를 저장한다
+
+
+17. 알파벳 소문자를 각 컬렉션에 넣고, 출력하는 코드를 작성하시오.
+for문을 이용하여 저장할 것.
+ArrayList - 출력시 for문, 확장 for문 이용
+HashMap - 출력시 Iterator, for문 이용
+HashSet - 출력시 Iterator 이용
+public static void main(String[] args) {
+		ArrayList<Character> ar = new ArrayList<Character>();
+		
+		for(int i='a'; i<'z'; i++) {
+			char alpha = (char)i;
+			ar.add(new Character(alpha));
+		}
+		System.out.println("----ArrayList 이용----");
+		for(Character n: ar) {
+			System.out.print(n + " ");
+		}
+		
+		
+		HashMap<Integer, String> hm = new HashMap<Integer, String>();
+
+		for(int i='a'; i<='z'; i++) {
+			String s = Character.toString((char)i);
+			hm.put(new Integer(i), s);
+		}
+		Set<Integer> kset = hm.keySet();
+		Iterator<Integer> iter = kset.iterator();
+		System.out.println("\n\n----HashMap 이용----");
+		while(iter.hasNext()) {
+			int key = iter.next();
+			String val = hm.get(key);
+			System.out.print(val + " ");
+		}
+		
+		HashSet<String> hs = new HashSet<String>();
+		
+		for(int i='a'; i<='z'; i++) {
+			String s = Character.toString((char)i);
+			hs.add(s);
+		}
+		
+		System.out.println("\n\n----HashSet 이용----");
+		Iterator<String> iter2 = hs.iterator();
+		
+		while(iter2.hasNext()) {
+			String al = iter2.next();
+			System.out.print(al + " ");
+		}
+		
+
+	}
+
+}
+
+
+
+
+18. HashMap의 구버전인 Hashtable을 상속받아 구현한 컬렉션이 무엇인지 쓰고, 특징을 설명하시오
+Properties
+Iterator()못 씀
+키 - 밸류가 전부 String
+
+
+19. 파일로부터 데이터를 읽어서 Properties 컬렉션에 저장하는 코드이다.
+코드를 완성하시오.
+
+abc.txt
+name=Hong gil dong
+data=9,3,6,29,3,7,6,11
+------------------------------
+
+import java.io.*;
+import java.util.*;
+class Exam{
+	public static void main(String[] args) {		
+		Properties prop = new Properties();
+
+		String inputFile = "test/abc.txt";
+
+		try {
+			(1) prop1.load(new FileInputStream(inputFile));
+			
+
+
+
+
+		} catch(IOException e) {
+			System.out.println("지정된 파일을 찾을 수 없습니다.");
+			return;
+		}
+
+		String name = prop.getProperty("name");
+		String data = prop.getProperty("data");				
+
+		System.out.println("이름 :" + name);		
+		System.out.println("data :" + data);
+	}
+}

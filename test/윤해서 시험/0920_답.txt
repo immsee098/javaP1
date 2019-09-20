@@ -1,0 +1,294 @@
+[ java 13강 - 1차 테스트]
+
+1. 컬렉션(Collection)이란?
+
+- 데이터의 저장을 위해 정의된 클래스
+- 다수의 데이터를 다루는 데 필요한 다양하고 풍부한 클래스들을 제공함
+- 컬렉션 클래스는 데이터를 삽입했을 때 동적으로 메모리를 늘림
+
+
+2. 컬렉션 프레임워크의 핵심 인터페이스 3가지는?
+List, Set, Map
+
+
+3. 컬렉션 프레임워크의 핵심 인터페이스를 각각 설명하시오.
+1) List
+순서가 있는 데이터의 집합. 데이터의 중복을 허용함
+구현 클래스 : ArrayList, LinkedList, Stack, Vector 등
+
+2) Set
+순서를 유지하지 않는 데이터의 집합. 데이터의 중복을 허용하지 않음
+구현 클래스 : HashSet, TreeSet 등
+
+3) Map
+ 키(key)와 값(value)의 쌍으로 이루어진 데이터의 집합
+순서는 유지되지 않으며, 키는 중복을 허용하지 않고, 값은 중복을 허용함
+구현 클래스: HashMap, TreeMap, Hashtable, Properties 등
+
+
+4. Vector와 ArrayList는 ( Object 배열 )을 이용해서 데이터를 순차적으로 저장한다.
+첫번째로 저장한 객체는 ( Object 배열 )의 0번째 위치에 저장되고 그 다음에 저장하는 객체는 1번째 위치에 저장된다.
+이런 식으로 계속 배열에 순서대로 저장되며, 배열에 더 이상 저장할 공간이 없으면 보다 큰 새로운 배열을 
+생성해서 기존의 배열에 저장된 내용을 새로운 배열로 복사한 다음에 저장된다.
+
+
+5. (제네릭스(Generics))는 컬렉션에 저장할 객체의 타입을 지정하여 
+지정한 타입의 객체만 해당 컬렉션에 저장할 수 있으며,
+꺼낼 때는 자동으로 형변환해준다.
+
+
+6. Boxing이란?
+-  스택에 저장된 기본자료형 데이터를 힙영역의 참조형으로 변환하는것
+박싱을 해주는 클래스가 Wrapper 클래스이다
+
+7. Unboxing이란?
+- 참조형의 데이터를 기본형으로 변환
+
+
+8. 오토박싱(autoboxing)이란?
+기본 자료형 값이 컴파일러에 의해서 자동으로 Wrapper 클래스로 변환되어 저장되는 것
+
+
+9. ArrayList에 float형 값을 4개 저장하고, 꺼내오는 코드를 작성하시오.
+1.7, 2.7, 3.7, 4.7 을 입력
+(입력시에는 for 문 이용, 출력시에는 for문과 확장 for문을 각각 이용하여 출력)
+
+
+import java.util.*;
+class  Exam13_1{
+	public static void main(String[] args) {
+		ArrayList<Float> list2=new ArrayList<Float>();
+		
+		for (int i=0;i<4 ;i++ )	{
+			list2.add(i+1.7f);
+		}
+
+		for(int i=0; i<list2.size(); i++){
+			float num = list2.get(i); 
+			System.out.println(num);
+		}
+		
+		for(float f : list2)
+			System.out.println(f);
+	}
+}
+
+
+10. toString() 메서드가 자동으로 호출되는 경우 2가지를 쓰시오.
+[1] System.out.println() 메서드에 매개변수로 들어가는 경우
+[2] 객체에 대하여 더하기(+) 연산을 하는 경우 
+
+
+11. Emp 클래스를 정의하고
+1) 멤버변수 
+사원번호, 사원명, 급여
+2) 생성자, getter/setter, toStirng() 오버라이딩
+
+사용자로 부터 입력받아 ArrayList에 Emp 클래스를 3개 저장한 후,
+읽어와서 toString() 을 이용하여 화면 출력하는 코드를 작성하시오.
+출력시 for문과, 확장 for문을 이용하여 2번 출력하시오.
+
+package test;
+import java.util.*;
+
+public class Exam2 {
+	public static void main(String[] args){		
+		ArrayList<Emp> list=new ArrayList<Emp>();
+
+		Scanner sc = new Scanner(System.in);
+		for(int i=0;i<3;i++){
+			System.out.println("사원번호, 이름, 급여를 입력하세요");
+			int empNo=sc.nextInt();
+			sc.nextLine();
+			String name=sc.nextLine();					
+			int pay=sc.nextInt();
+			
+			list.add(new Emp(empNo,name,pay));
+		}
+		
+		for(int i=0; i<list.size(); i++)
+		{
+			Emp mem = list.get(i); 
+			System.out.println(mem);
+		}
+
+		for(Emp mem: list)
+		{
+			System.out.println(mem);
+		}
+
+	}//main
+}
+
+
+class Emp
+{
+	private int empNo;
+	private String name;
+	private int pay;
+	
+	public Emp(int empNo, String name, int pay) {
+		super();
+		this.empNo = empNo;
+		this.name = name;
+		this.pay = pay;
+	}
+	
+	public int getEmpNo() {
+		return empNo;
+	}
+	public void setEmpNo(int empNo) {
+		this.empNo = empNo;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getPay() {
+		return pay;
+	}
+	public void setPay(int pay) {
+		this.pay = pay;
+	}
+	
+	public String toString() {
+		return "Emp [empNo=" + empNo + ", name=" + name + ", pay=" + pay + "]";
+	}	
+}//
+
+
+
+
+12. Set<E> 인터페이스를 구현하는 컬렉션 클래스인 HashSet에 대해 설명하시오.
+
+데이터의 저장 순서를 유지하지 않는다.
+데이터의 중복 저장을 허용하지 않는다.
+
+
+13. 컬렉션에 저장된 요소를 접근하는데 사용되는 인터페이스는 ( Iterator ) 이고,
+구 버전은  ( Enumeration ) 이며, 컬렉션 프레임워크가 만들어지기 이전에 사용하던 것이다.
+
+
+14. () 에 들어갈 공통된 메서드는?
+Collection 인터페이스에는 Iterator(Iterator를 구현한 클래스의 인스턴스)를 반환하는 
+( iterator() ) 메서드를 정의
+컬렉션 클래스에 대해 ( iterator() ) 를 호출하여 Iterator를 얻은 다음 반복문을 사용해서 
+컬렉션 클래스의 요소들을 읽어 올 수 있다.
+
+
+15.  Iterator 인터페이스의 (hasNext()) 메서드는 읽어 올 요소가 남아있는지 확인한다. 
+있으면 true, 없으면 false를 반환한다.
+( next() ) 메서드는 다음 요소를 읽어온다.
+
+
+16. Map<K, V> 인터페이스를 구현하는 컬렉션 클래스는 ( HashMap ) 이다.
+ Map에 대해 설명하시오.
+
+키와 값을 한 쌍으로 하여 저장하는 자료 구조
+value를 저장할 때, 이를 찾는데 사용되는 key를 함께 저장하는 구조
+
+value에 상관없이 중복된 key의 저장은 불가능하다
+value는 같더라도 key가 다르면 둘 이상의 데이터 저장도 가능하다.
+
+
+17. 알파벳 소문자를 각 컬렉션에 넣고, 출력하는 코드를 작성하시오.
+for문을 이용하여 저장할 것.
+ArrayList - 출력시 for문, 확장 for문 이용
+HashMap - 출력시 Iterator, for문 이용
+HashSet - 출력시 Iterator 이용
+
+
+import java.util.*;
+
+class Exam{
+  public static void main(String[] args){
+		ArrayList<Character> list = new ArrayList<Character>();
+		HashMap<Integer, Character> map = new HashMap<Integer,Character>();
+		HashSet<Character> set = new HashSet<Character>();
+
+		for (char i = 'a'; i <= 'z'; i++){
+			list.add(i);
+			map.put((int)i-97, i);  //키가 0~25
+			set.add(i);
+		}
+
+		System.out.println("-----ArrayList 이용-----");
+		for(int i = 0; i < list.size(); i++)
+		{			
+			System.out.print(list.get(i) +" ");
+		}
+
+		System.out.println("\n\n--------확장for 이용--------");
+
+		for(char ch : list)
+		{			
+			System.out.print(ch +" ");
+		}
+
+		System.out.println("\n\n--------HashSet 이용--------");
+		Iterator<Character> it=set.iterator();
+		while(it.hasNext()){
+			char d =it.next();
+			System.out.print(d+" ");
+		}
+
+		System.out.println("\n\n-----HashMap 이용-----");
+		for(int i = 0; i < map.size(); i++)
+		{
+			System.out.print(map.get(i) +" ");
+		}
+
+		System.out.println("\n\n--------HashMap iterator 이용--------");
+		Iterator<Integer> itr=map.keySet().iterator();
+		while(itr.hasNext()){
+			int key =itr.next();
+			System.out.print(map.get(key)+" ");
+		}
+    }//main
+ }
+
+
+
+18. HashMap의 구버전인 Hashtable을 상속받아 구현한 컬렉션이 무엇인지 쓰고, 특징을 설명하시오
+Properties 
+
+Hashtable - 키와 값을 (Object, Object)의 형태로 저장
+Properties - (String, String)의 형태로 저장하는 보다 단순화된 컬렉션 클래스
+주로 어플리케이션의 환경설정과 관련된 속성(property)을 저장하는데 사용되며 
+데이터를 파일로부터 읽고 쓰는 편리한 기능을 제공한다.
+
+
+19. 파일로부터 데이터를 읽어서 Properties 컬렉션에 저장하는 코드이다.
+코드를 완성하시오.
+
+abc.txt
+name=Hong gil dong
+data=9,3,6,29,3,7,6,11
+------------------------------
+
+import java.io.*;
+import java.util.*;
+class Exam{
+	public static void main(String[] args) {		
+		Properties prop = new Properties();
+
+		String inputFile = "test/abc.txt";
+
+		try {
+			(1) 
+			prop.load(new FileInputStream(inputFile));
+
+		} catch(IOException e) {
+			System.out.println("지정된 파일을 찾을 수 없습니다.");
+			return;
+		}
+
+		String name = prop.getProperty("name");
+		String data = prop.getProperty("data");				
+
+		System.out.println("이름 :" + name);		
+		System.out.println("data :" + data);
+	}
+}
