@@ -1,0 +1,206 @@
+[ java 13강 - 2차 테스트]
+
+1. Set<E> 인터페이스를 구현하는 TreeSet<E> 클래스의 특징은?
+TreeSet<E> 클래스는 트리(Tree)라는 자료구조를 기반으로 구현
+TreeSet<E> 클래스도 데이터를 정렬된 상태로 유지한다.
+
+
+2. TreeSet에 Integer를 저장하면 숫자의 크고 작음을 기준으로 정렬되어 저장되고,
+String의 경우 정렬순서는 ( 문자의 코드값)이 기준이 된다.
+
+
+3. TreeSet에 로또 숫자를 저장하고 출력하는 코드를 작성하시오.
+(1~45 사이의 임의의 정수 6개 저장)
+
+
+import java.util.*;
+class TreeSetTest2{
+	public static void main(String[] args) {
+		Set<Integer> set = new TreeSet<Integer>();
+		
+		while (set.size() < 6) {
+    			int num = (int)(Math.random()*45) + 1;  //1~45
+			set.add(num);
+		}
+
+		Iterator<Integer> itr=set.iterator();
+		while(itr.hasNext()){
+			int n = itr.next();
+			System.out.print(n +" ");
+		}//while
+
+	}
+}
+
+
+
+
+[14강 1차 테스트]
+
+1. Integer.toString()과 동일한 기능을 하는 String 클래스의 메서드는?
+String.valueOf()
+
+
+2. "안녕하세요\r\n 저는 홍길동입니다." 의 \r\n 을 <br> 로 치환하여 화면 출력하는 코드를 작성하시오.
+replace()메서드 사용
+
+
+3. "c:\mall\upload\abc.txt" 을 폴더, 화일명, 확장자를 구분하여 화면 출력하는 코드를 작성하시오.
+lastIndexOf(), substring() 메서드 이용
+
+
+4. "010-100-3000" 을 split() 메서드를 이용하여 분리하여 출력하는 코드를 작성하시오.
+
+
+5. 주민등록번호를 입력 받아서 "1990년 10월 11일, 남" 의 형태로 화면 출력하는 코드를 작성하시오.
+substring() 이용
+
+
+class Exam{
+	public static void main(String[] args){
+		//2.
+		String content = "안녕하세요\r\n 저는 홍길동입니다.";
+		String s = content.replace("\r\n", "<br>");
+		System.out.println(s);
+
+		//3.
+		String str = "c:\\mall\\upload\\abc.txt";
+		int i = str.lastIndexOf(".");
+		int k = str.lastIndexOf("\\");
+
+		System.out.println("폴더:"+ str.substring(0, k));
+		System.out.println("파일명:"+ str.substring(k+1, i));
+		System.out.println("확장자:"+ str.substring(i+1));
+
+		//4.
+		str = "010-100-3000";
+		String[] telArr = str.split("-");
+
+		for(String t : telArr){
+			System.out.println(t);
+		}
+		
+		//5.
+		Scanner sc = new Scanner(System.in);
+		System.out.println("주민등록번호를 입력하세요(하이픈없이 입력)");
+		String ssnNo = sc.nextLine();
+		//9010121112222
+		String gender = ssnNo.substring(6,7);
+		String yy="", mm, dd, gender2="";
+		if(gender.equals("1") ||gender.equals("2")){
+			yy =  "19" + ssnNo.substring(0,2);
+		}else if(gender.equals("3") ||gender.equals("4")){
+			yy = "20" + ssnNo.substring(0,2);
+		}else{
+			System.out.println("잘못입력!!");
+			return;
+		}
+		mm =ssnNo.substring(2,4);
+		dd = ssnNo.substring(4,6);
+		if(gender.equals("1") ||gender.equals("3")){
+			gender2 = "남";
+		}else if(gender.equals("2") ||gender.equals("4")){
+			gender2 = "여";
+		}else	{
+			System.out.println("잘못입력!!");
+			return;
+		}
+
+		System.out.println(yy +"년 " + mm +  "월 " +dd +"일 "+ ","+ gender2);
+	}
+}
+
+
+
+6. 배열에 여러개의 파일명을 저장하고
+예) "Hello.java","text.hwp",  "member.js"
+
+반복문을 사용하여 순수파일명과 확장자만 출력하는 코드를 작성하시오.
+(순수 파일명 : Hello, text, member
+확장자 : java, hwp, js)
+
+
+	String fileNames[]={"Hello.java", "text.hwp",  "member.js"};
+
+	//반복문을 사용하여 확장자만 print 하기
+	for(int i=0;i<fileNames.length;i++){
+		int idx=fileNames[i].lastIndexOf(".");	//"."의 위치를 가져온다
+
+		if(idx!=-1){
+			String fName=fileNames[i].substring(0, idx);	
+			System.out.println("순수 파일명 : "+fName);
+
+			String ext=fileNames[i].substring(idx+1);	//"."위치다음 부터끝까지 추출함!
+			System.out.println("확장자 : "+ext+"\n");
+		}
+	}
+
+
+
+
+7. Calendar 클래스의 객체 생성 방법 2가지를 쓰시오.
+
+[1] Calendar  cal = Calendar.getInstance(); 
+[2] Calendar  cal = new GregorianCalendar();
+     또는
+     GregorianCalendar  cal = new GregorianCalendar(); 
+
+
+8. Date 클래스를 이용하여 아래와 같이 날짜를 출력하는 코드를 작성하시오.
+
+2017년 9월 19일  14시 26분 17초 
+요일 : 2
+1970-01-01부터 오늘까지 경과된 일 수 : 17428일
+
+--------------
+
+	Date date = new Date();  //현재 날짜
+	
+	int year = date.getYear();
+	int month = date.getMonth(); //0~11
+	int day = date.getDate();
+	int hours = date.getHours();
+	int minutes = date.getMinutes();
+	int seconds = date.getSeconds();
+	
+	System.out.println( (year+1900)+"년 "+(month+1)+"월 "+ day+"일  "
+		+ hours+"시 "+ minutes+"분 "+ seconds+"초");
+	
+	System.out.println("요일 : " + date.getDay()); //0:일요일
+
+	long diff = date.getTime()/1000; //초	
+	diff = diff/(24*60*60);  //일
+	System.out.println("1970-01-01부터 오늘까지 경과된 일 수 : " + diff +"일");
+
+
+9. Calendar 클래스를 이용하여 아래와 같이 날짜를 출력하는 코드를 작성하시오.
+
+2017년 9월 19일  14시 26분 17초 
+요일 : 3
+1970-01-01부터 오늘까지 경과된 일 수 : 17428일
+
+-----------
+
+import java.util.*;
+public class Exam {
+	public static void main(String[] args) {
+		Calendar ca = Calendar.getInstance();
+		
+		int year = ca.get(Calendar.YEAR);
+		int month = ca.get(Calendar.MONTH);
+		int day = ca.get(Calendar.DATE);
+		int hour = ca.get(Calendar.HOUR_OF_DAY);
+		int minute = ca.get(Calendar.MINUTE);
+		int second = ca.get(Calendar.SECOND);
+		int weekday = ca.get(Calendar.DAY_OF_WEEK);
+
+		System.out.println( year+"년 "+(month+1)+"월 "+ day+"일  "
+		+ hour+"시 "+ minute+"분 "+ second+"초");
+
+		System.out.println("요일 : " + weekday);
+
+		long diff = ca.getTimeInMillis()/1000; //초	
+		diff = diff/(24*60*60);  //일
+		System.out.println("1970-01-01부터 오늘까지 경과된 일 수 : " + diff );
+	}
+}

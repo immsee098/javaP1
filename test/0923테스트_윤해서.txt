@@ -1,0 +1,172 @@
+[ java 13강 - 2차 테스트]
+
+
+1. Set<E> 인터페이스를 구현하는 TreeSet<E> 클래스의 특징은?
+데이터를 자동정렬해서 저장해준다
+
+
+2. TreeSet에 Integer를 저장하면 숫자의 크고 작음을 기준으로 정렬되어 저장되고,
+String의 경우 정렬순서는 (    문자 코드값    )이 기준이 된다.
+
+
+3. TreeSet에 로또 숫자를 저장하고 출력하는 코드를 작성하시오.
+(1~45 사이의 임의의 정수 6개 저장)
+
+package com.java0923;
+
+import java.util.Iterator;
+import java.util.TreeSet;
+
+public class Test1 {
+
+	public static void main(String[] args) {
+		TreeSet<Integer> lotto = new TreeSet<Integer>();
+	
+		for(int i=0; i<10; i++) {
+			int num = (int)(Math.random()*45+1); 
+			lotto.add(num);
+			if(lotto.size()==6) {
+				break;
+			}
+		}
+		Iterator<Integer> itr=lotto.iterator();
+		while(itr.hasNext()){
+			System.out.println(itr.next());
+			}
+		}
+	}
+
+
+
+
+
+[14강 1차 테스트]
+
+1. Integer.toString()과 동일한 기능을 하는 String 클래스의 메서드는?
+valueOf
+
+2. "안녕하세요\r\n 저는 홍길동입니다." 의 \r\n 을 <br> 로 치환하여 화면 출력하는 코드를 작성하시오.
+replace()메서드 사용
+	public static void main(String[] args) {
+		String str = "안녕하세요\r\n 저는 홍길동입니다.";
+		
+		String str2 = str.replace("\r\n", "<br>");
+		System.out.println(str2);
+}
+
+3. "c:\mall\upload\abc.txt" 을 폴더, 화일명, 확장자를 구분하여 화면 출력하는 코드를 작성하시오.
+lastIndexOf(), substring() 메서드 이용
+		String str3 ="c:\\mall\\upload\\abc.txt";
+		int dot = str3.lastIndexOf(".");
+		int dollor = str3.lastIndexOf("\\");
+		String folder = str3.substring(0, dollor);
+		String name = str3.substring(dollor+1, dot);
+		String type = str3.substring(dot+1);
+		System.out.println("폴더:"+folder);
+		System.out.println("파일명:"+name);
+		System.out.println("확장자:"+type);
+
+4. "010-100-3000" 을 split() 메서드를 이용하여 분리하여 출력하는 코드를 작성하시오.
+
+		String str = "010-100-3000";
+		String[] word = str.split("-");
+		for(String n:word) {
+			System.out.println(n);
+		}
+
+
+5. 주민등록번호를 입력 받아서 "1990년 10월 11일, 남" 의 형태로 화면 출력하는 코드를 작성하시오.
+substring() 이용
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("주민번호 입력(하이픈x)");
+		
+		String num = sc.nextLine();
+		String ge = num.substring(6, 7);
+		String year = num.substring(0,2);
+		String month = num.substring(2,4);
+		String day = num.substring(4,6);
+		
+		String ge2 = "";
+		String year2 ="";
+		
+		switch(ge) {
+			case "1":
+				ge2="남";
+				year2 = "19"+year;
+				break;
+			case "2":
+				ge2="여";
+				year2 = "19"+year;
+				break;
+			case "3":
+				ge2="남";
+				year2 = "20"+year;
+				break;
+			case "4":
+				ge2="여";
+				year2 = "20"+year;
+				break;
+		}
+		
+		System.out.println(year2+"년 "+month+"월 "+day+"일 ,"+ge2);
+
+
+
+
+
+6. 배열에 여러개의 파일명을 저장하고
+예) "Hello.java","text.hwp",  "member.js"
+
+반복문을 사용하여 순수파일명과 확장자만 출력하는 코드를 작성하시오.
+(순수 파일명 : Hello, text, member
+확장자 : java, hwp, js)
+		String[] a= {"Hello.java","text.hwp",  "member.js"};
+		String name ="";
+		String type = "";
+		for(String n:a) {
+			int dot = n.lastIndexOf(".");
+			String name2 = n.substring(0,dot);
+			String type2 = n.substring(dot+1);
+			name += (name2+" ");
+			type += (type2+" ");
+		}
+		System.out.println(name);
+		System.out.println(type);
+
+
+7. Calendar 클래스의 객체 생성 방법 2가지를 쓰시오.
+
+1) Calendar cal = Calendar.getInstance();
+2) Calendar cal =new GreorianCalender();
+
+
+8. Date 클래스를 이용하여 아래와 같이 날짜를 출력하는 코드를 작성하시오.
+
+2017년 9월 19일  14시 26분 17초 
+요일 : 2
+1970-01-01부터 오늘까지 경과된 일 수 : 17428일
+		Date date = new Date();
+		date.setYear(2017-1900);
+		date.setMonth(8);
+		date.setDate(19);
+		date.setHours(14);
+		date.setMinutes(26);
+		date.setSeconds(17);
+		long diff = date.getTime()/1000; 
+		diff = diff/(24*60*60);  
+		System.out.println("1970-01-01부터 오늘까지 경과된 일 수 : " + diff +"일");
+
+
+9. Calendar 클래스를 이용하여 아래와 같이 날짜를 출력하는 코드를 작성하시오.
+
+2017년 9월 19일  14시 26분 17초 
+요일 : 3
+1970-01-01부터 오늘까지 경과된 일 수 : 17428일
+
+		Calendar cal = Calendar.getInstance();
+		cal.set(2017, 8, 19);
+		
+		long diff = cal.getTimeInMillis()/1000;
+		diff = diff/(24*60*60); 
+		System.out.println(diff);
