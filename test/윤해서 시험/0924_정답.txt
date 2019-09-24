@@ -1,0 +1,274 @@
+[ java 14강 - 2차 테스트]
+
+
+1. Calendar를 Date로 변환하는 코드를 작성하시오.
+Calendar cal = Calendar.getInstance();
+Date date = cal.getTime();
+
+또는
+Date date = new Date(cal.getTimeInMillis());  
+
+
+2. Date를 Calendar로 변환하는 코드를 작성하시오.
+Date d = new Date();
+Calendar cal = Calendar.getInstance();
+cal.setTime(d);
+
+
+3. 2019년 1월 1일부터 오늘까지 몇 일이 경과했는지 구하는 코드를 작성하시오.
+getTimeInMillis()  이용
+
+
+import java.util.*;
+class  CalExam{
+	public static void main(String[] args) {
+		Calendar date1 = Calendar.getInstance();
+		Calendar date2 = Calendar.getInstance();
+
+		date1.set(2019, 0, 1);
+
+		long difference =(date2.getTimeInMillis() - date1.getTimeInMillis())/1000;  //초
+		System.out.println("date1과 date2의 차이(일) :  "+ difference/(24*60*60) +"일");
+
+	}
+}
+
+
+4. 오늘부터 7개월 후의 날짜를 구하는 코드를 작성하시오.
+add() 이용
+
+	Calendar date = new GregorianCalendar();
+	date.add(Calendar.MONTH, 7);
+	System.out.println("7개월 후"+showDate(date));
+
+
+5. 천단위 구분기호가 표시되도록 코드를 작성하시오.
+
+import java.text.*;
+
+class  CalExam{
+	public static void main(String[] args) {
+		DecimalFormat df = new DecimalFormat("#,###");
+		String s = df.format(123456.723456);
+		System.out.println("\n" +s); // 결과 123,457
+
+	}
+}
+
+6. 현재일자 이전 날짜를 사용자로부터 입력받아서, 현재일자까지 경과된 일수를 구하는 코드를 작성하시오. 
+
+import java.util.*;
+import java.text.*;
+class  DateFormatExam{
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("오늘 이전 날짜를 입력하세요(2019-08-30)");
+		String str = sc.nextLine();
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");		
+		try {
+			Date date = df.parse(str);
+
+			Date today=new Date();
+			long diff = (today.getTime()-date.getTime())/1000;
+			diff = diff/(24*60*60);
+			System.out.println("두 날짜 사이의 간격 : "+diff);
+			
+		} catch(ParseException e) {
+			e.printStackTrace();
+		}		
+	}
+}
+
+
+7. 오늘 날짜를 아래 형태대로 출력하는 코드를 작성시오
+SimpleDateFormat 이용
+
+2019/09/25 15:20:40 월요일
+
+
+	SimpleDateFormat df2 = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss E요일");		
+	Date today=new Date();
+	String s = df2.format(today);
+	System.out.println(s);
+
+
+
+8. 다음과 같이 정의된 메서드를 작성하고 테스트하시오.
+메서드명 : getDayDiff
+기 능 : yyyymmdd형식의 두 문자열을 넘겨받으면 두 날짜의 차이를 일(day)단위로 반환한다.
+단, 첫 번째 날짜 빼기 두 번째 날짜의 결과를 반환한다.
+만일 주어진 문자열이 유효하지 않으면 0을 반환한다.
+
+반환타입 : int
+매개변수 : String yyyymmdd1 - 시작날짜
+	     String yyyymmdd2 - 끝 날짜
+
+GregorianCalendar를 이용할 것
+
+
+import java.util.*;
+class ExamCal2 {
+	public static int getDayDiff(String yyyymmdd1, String yyyymmdd2) {
+		int diff = 0;
+		try {
+			int year1 = Integer.parseInt(yyyymmdd1.substring(0,4));
+			int month1 = Integer.parseInt(yyyymmdd1.substring(4,6)) - 1;
+			int day1 = Integer.parseInt(yyyymmdd1.substring(6,8));
+
+			int year2 = Integer.parseInt(yyyymmdd2.substring(0,4));
+			int month2 = Integer.parseInt(yyyymmdd2.substring(4,6)) - 1;
+			int day2 = Integer.parseInt(yyyymmdd2.substring(6,8));
+			
+			Calendar date1 = new GregorianCalendar(year1, month1, day1);
+			Calendar date2 = new GregorianCalendar(year2, month2, day2);
+			
+			System.out.println(showDate(date1));
+			System.out.println(showDate(date2));
+
+			diff = (int)((date1.getTimeInMillis()-date2.getTimeInMillis())/(24*60*60*1000));
+		} catch(Exception e) {
+			diff = 0; // substring(), parseInt()에서 예외가 발생하면 0을 반환한다.
+		}
+		
+		return diff;
+	}
+
+	public static void main(String[] args){
+		System.out.println(getDayDiff("20190103","20190101"));
+		System.out.println(getDayDiff("20190103","20190103"));
+		System.out.println(getDayDiff("20190103","201903"));
+	}
+
+	public static String showDate(Calendar date) {
+		return date.get(Calendar.YEAR)+"년 "
+			+ (date.get(Calendar.MONTH)+1) + "월 " 
+			+ date.get(Calendar.DATE) + "일 "
+			+ date.get(Calendar.HOUR_OF_DAY)+"시 "
+			+ date.get(Calendar.MINUTE)+"분 "
+			+ date.get(Calendar.SECOND) +"초";
+	}
+}
+
+
+
+
+
+
+
+[ java 15강 - 1차 테스트]
+
+1. String 클래스는 변경이 불가능한 문자열의 표현을 위한 클래스이다.
+String 클래스의 단점을 보완하기 위해서 나온 클래스인 (StringBuffer) 나 (StringBuilder) 는 
+변경이 가능한 문자열의 표현을 위한 클래스로써, 문자열을 더하더라도 새로운 객체를 생성하지 않는다.
++ 기호를 사용하는 것이 아니라 (append()) 메서드를 사용한다.
+
+
+2. String 클래스는 한번 만들어지면 더 이상 그 값을 바꿀 수 없다.
+String 문자열을 더하면 ( 새로운 String 객체가 생성되고, 기존 객체는 버려진다)
+
+
+3. JDK 5.0 이상에서는 String 의 더하기 연산을 할 경우, 컴파일할 때 자동으로 해당 연산을
+( StringBuilder )로 변환해준다.
+하지만 for 루프와 같이 반복 연산을 할 때에는 자동으로 변환 해주지 않는다.
+
+
+4.  전달된 값을 StringBuilder 의 인스턴스가 저장하고 있는 문자열 데이터의 끝에 문자의 형태로 추가하는 메서드는?
+append() 메서드
+
+
+5. String을 StringBuilder 로 변환하는 코드를 작성하시오.
+
+String str="java";
+StringBuilder sb =  new StringBuilder(str);
+System.out.println(sb);
+
+6. StringBuilder를 String으로 변환하는 코드를 작성하시오.
+
+StringBuilder sb =  new StringBuilder("안녕");
+String str = sb.toString();
+System.out.println(str);
+
+
+7. StringBuilder 에 임의의 문자열, 정수, char, boolean, float 값을 추가한 후
+해당 StringBuilder의 index 3의 위치에 hello를 삽입하는 코드를 작성하시오
+
+StringBuilder sb=new StringBuilder("jsp");
+sb.append(97);
+sb.append('Y').append(true).append(3.14f);
+System.out.println(sb);		
+
+sb.insert(3, "hello");
+System.out.println(sb);
+
+
+8. ()안에 공통으로 들어갈 내용은?
+StringBuilder 클래스는 String 클래스와 같이 문자열을 저장하기 위한 
+( char형 배열 )의 참조 변수를 인스턴스 변수로 선언해 놓고 있다
+StringBuilder 클래스의 인스턴스를 생성할 때, 적절한 크기의 ( char 형 배열)이 생성되고, 
+이 ( 배열 )은 문자열을 저장하고 편집하기 위한 공간(buffer)으로 사용된다.
+
+
+9. StringBuilder() 생성자를 이용하면 (16)개의 문자 저장 버퍼가 생성되고,
+문자가 저장됨에 따라서 자동으로 증가된다.
+StringBuilder(int capacity) 생성자를 이용하면 (capacity)개의 문자 저장 버퍼가 생성된다.
+이는 초기 버퍼 크기를 지정할 때 사용한다.
+StringBuilder(String str) 생성자를 이용하면 (str.length() + 16 ) 개의 문자 저장 버퍼가 생성된다.
+
+
+10. StringBuilder는 JDK 5.0 에 추가된 클래스로 StringBuffer 와 완전히 동일한 클래스이다.
+( StringBuilder )는 동기화(synchronization)처리를 하지 않기 때문에 멀티쓰레드 프로그래밍에서는 사용하면 안 되지만, 
+멀티쓰레드 프로그래밍이 아닌 경우에는 ( StringBuffer ) 보다 빠른 성능을 보장한다.
+멀티쓰레드 프로그래밍에서는 ( StringBuffer )를 사용한다.
+
+
+11. String 클래스는 다음 원칙을 기준으로 인스턴스가 생성되도록  String 클래스를 정의하였다.
+문자열이 동일한 경우에는 ( 하나의 String 인스턴스만 생성해서 공유한다 )
+
+
+12. 실행 결과를 예측하시오.
+class ImmutableString{
+	public static void main(String[] args){
+		String str1="Hello";
+		String str2="Hello";		
+		
+		if(str1==str2)  
+			System.out.println("str1, str2는 동일 인스턴스 참조");
+		else
+			System.out.println("str1, str2는 다른 인스턴스 참조");		
+		
+		String str4 = new String("Hello");
+		String str5 = new String("Hello");
+
+		if(str4==str5)
+			System.out.println("str4, str5는 동일 인스턴스 참조");
+		else
+			System.out.println("str4, str5는 다른 인스턴스 참조");			
+	}
+}
+
+-------
+str1, str2는 동일 인스턴스 참조
+str4, str5는 다른 인스턴스 참조
+
+
+13. String 클래스를 이용하여 아무리 많은 + 연산을 하더라도, 추가적인 인스턴스의 생성은 두 개로 제한된다.
+다음 코드에서 (1) 에서 어떤 인스턴스가 추가로 생성되는지 (2)위치에 작성하시오.
+
+
+class StringMethod{
+	public static void main(String[] args){
+		String str1="java ";
+		String str2="and ";
+		String str3="oracle";
+		String str4=str1.concat(str2).concat(str3);  //(1)
+		
+		System.out.println(str4);
+		
+		//(2)
+		String str5 
+		= new StringBuilder().append(str1).append(str2).append(str3).toString();
+
+	}
+}
+
+
