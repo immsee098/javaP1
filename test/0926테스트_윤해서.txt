@@ -1,0 +1,432 @@
+[ java 15강 - 종합 테스트2]
+
+
+1. 다형성이란
+부모 클래스로 자식 인스턴스를 참조할 수 있는 것. 하나의 부모클래스로 다른 여러 클래스 통합관리
+
+
+2.  기본형 변수와 같이 참조형 변수도  형변환이 가능하다.
+단, 서로 (  상속관계  ) 사이에서만 가능하다.
+
+
+3. 자식 타입의 참조변수를 부모 타입의 참조변수로, 부모 타입의 참조변수를 자식 타입의 참조변수로의 형변환만 가능하다.
+자동형변환은 언제 발생하고, 명시적 형변환해야 하는 경우는 언제인가?
+자식이 부모타입으로 ->자동형변환
+부모가 자식 타입으로 -> 자동이어야함
+
+
+4. instanceof 연산자의 형식을 쓰시오. 
+참조변수 instanceof 클래스이름
+
+
+5. instanceof 연산자에 대해 설명하시오.
+특정 인스턴스의 실제 타입 확인을 위한 것
+
+
+6.  instanceof를 이용한 연산결과로 true를 얻었다는 것은 
+(  해당 타입으로 형변환 가능하다 )는 것을 뜻한다.
+
+
+7. 다음 클래스를 이용하여 코드를 완성하시오.
+
+class Shape {
+	public double findArea() {
+		return 0.0;
+	}
+}//
+
+class Circle1 extends Shape {
+	final double PI = 3.14;
+	private int r;
+
+	public Circle1(int r){
+		this.r = r;
+	}
+
+	public double findArea() {
+		return  PI*r*r;
+	}
+
+	public void showCircle(){
+		System.out.println("Circle1의 메서드!");
+	}
+}//
+
+class Rect1 extends Shape {
+	private int w;
+	private int h;
+
+	public Rect1(int w, int h){
+		this.w =w;
+		this.h = h;
+	}
+	public double findArea() {
+		return w*h;
+	}
+	public void showRect(){
+		System.out.println("Rect1의 메서드!");
+	}
+}//
+
+class javaExam1 {
+	public static void main(String[] args) {
+		//(1) Shape배열을 만들고, 요소 4개를 저장한 후, 각 요소의 오버라이딩 메서드 호출
+		Shape[] sh = new Shape[4];
+		sh[0] = new Circle1(10);
+		sh[1] = new Circle1(20);
+		sh[2] = new Rect1(10, 20);
+		sh[3] = new Rect1(30, 40);
+				
+
+		//(2) 각 요소의 자식클래스만의 메서드 호출
+		Circle1 ci = (Circle1)sh[0];
+		Rect1 re = (Rect1)sh[2];
+		
+		ci.showCircle();
+		re.showRect();
+		
+
+
+	}
+
+	private static Circle1 Circle1(Shape shape) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+}
+
+8. instanceof 연산자의 결과가 true가 나오는 경우를 모두 설명하시오.
+자식의객체 instanceof 부모클래스, 부모타입의 instanceof 연산
+
+
+9. 추상 메서드에 대해 설명하시오
+구현하지 않고 구현할 대상만 정해둔 메서드
+
+
+10. 추상 메서드의 형식을 쓰시오.
+public abstract void 메서드이름();
+
+
+11. 추상클래스가 되는 방법 2가지를 설명하시오.
+추상 메서드를 포함한 클래스
+abstract를 붙여서 직접 추상메서드로 만듦
+
+
+12. 추상 클래스의 형식을 쓰시오.
+abstract class 클래스이름{}
+
+
+
+13. 추상메서드를 포함하고 있는 추상클래스를 상속받는 자식클래스는 추상클래스가 가지고 있는 
+모든 추상메서드를 구현해 주어야만 (   객체  )를 생성할 수 있다.
+자식클래스에서 추상메서드를 모두 구현해 주지 않으면 자식클래스도 (  추상 클래스 취급을 받는다       )
+
+
+14. 추상클래스에 대해 설명하시오
+미완성 메서드 포함 어떻게 자식 클래스를 만들 것인가 틀을 준다. 자식클래스는 이것을 구체적으로 구현할 의무를 지님
+
+
+15. 인터페이스에 대해 설명하시오.
+추상 클래스인데 아무것도 구현이 되어있지 않다.
+
+
+16. 인터페이스는 ( 추상 메서드  )와 (   상수   )만을 멤버로 가질 수 있다
+
+
+17. 인터페이스의 멤버들의 제약사항에 대한 설명이다. ()안을 채우시오.
+ 모든 상수는 (  public static final   ) 이어야 하며, 이를 생략할 수 있다.
+ 모든 메서드는  (   public abstract   ) 이어야 하며, 이를 생략할 수 있다.
+
+
+18. 인터페이스는 인스턴스를 생성할 수 없으며, 자신에 정의된 추상 메서드의 몸통을 만들어 주는 클래스를 작성해야 한다.
+인터페이스는 구현할 때(상속할 때) 키워드  (   implements   )를 사용한다.
+
+
+19. 상속과 구현을 동시에 할 수도 있다. 
+Unit 클래스의 상속과 Fightable 인터페이스의 구현을 동시에 하도록 코드를 완성하시오.
+
+class Fighter            
+{ 
+	 public void move(int x, int y){ ... }
+	 public void attack(unit u){ ... }
+}
+
+class Fighter extends Unit implements Fightable{ ~~ }
+
+
+20. 맞으면 O, 틀리면 X 표시하시오.
+인터페이스는 인터페이스로부터만 상속받을 수 있으며,  다중상속이 가능하다 ( O )
+클래스는 단일상속, 다중상속 모두 가능하다. ( X ) 
+인터페이스들끼리는 다중상속과 단일 상속이 가능하다. (O )
+인터페이스가 하나의 클래스가 되기 위해서는 반드시 모든 내부의 구현되지 않은 구성요소들을 전부 구현해야 한다. ( O )
+하나의 클래스가 여러 개의 인터페이스를 상속받아 구현할 수 있다 ( O ) 
+
+
+21.  인터페이스끼리 상속할 때는 (  extends   ) 키워드를 사용한다.
+
+
+22. TV 인터페이스와 Computer 인터페이스를 상속받는 (구현하는) IPTV 클래스의 코드를 완성하시오.
+
+class IPTV     
+{
+	...
+}
+
+class IPTV extends TV implements Computer{  ~~~ }
+
+
+23. 예외란?
+실행시 발생하는 예상치 못한 오류들
+
+24. 예외처리(Exception Handling)란
+예외 발생시 실행할 코드를 미리 작성해두는 것
+ 
+
+25.  에러에는 컴파일 에러 (Compile Error)와  (  실행에러    )가 있는데,
+실행에러는 에러(Error)와 ( 예외   ) 로 구분할 수 있다.
+
+
+26. 소스코드를 컴파일하는 과정에서 생기는 에러로 실행파일을 생성시키지 못하며,
+오타이거나 문법적 오류인 경우 발생하는 에러는 무엇인가?
+  컴파일 에러
+
+
+27. 메모리 부족, 스택오버플로우와 같이 일단 발생하면 복구할 수 없는 심각한 오류를 무엇이라 하는가?
+ 에러
+
+28. 발생하더라도 수습될 수 있는 비교적 덜 심각한 오류로 프로그램의 비정상적인 종료를 막을 수 있는 에러를
+무엇이라 하는가?
+ 예외
+
+29. 예외 처리의 목적은 무엇인가?
+ 강제종료되는 비정상종료를 막는 것
+
+30. 예외처리 구문의 형식을 쓰시오.
+try{~}catch{~} 구문
+ 
+
+31. 다중 catch문이란?
+ 여러개의 예외를 처리하기 위해 다양한 catch를 만들어두는 것
+
+32. 다중 catch문에서 Exception 계층구조가 오는 순서는?
+자식->부모순임
+ 
+
+33. 모든 예외의 기반 클래스는?
+ Exception
+
+34. 키워드 throw 는 언제 사용하나?
+개발자가 의도적으로 예외를 발생시킬대
+  
+
+35. throw 사용 형식을 쓰시오.
+throw new Exception("~")
+ 
+
+36.  Exception 인스턴스를 생성할 때, 생성자에 String을 넣어 주면, 
+이 String이 Exception인스턴스에 메시지로 저장된다.
+이 메시지는 ( getmessage    ) 메서드를 이용해서 얻을 수 있다.
+
+
+37. 예외 발생여부와 상관없이 반드시 실행되어야 하는 구문을 입력하는 곳으로,
+예외가 발생해도 호출되며, 그렇지 않아도 호출되는 구문은?
+finally
+ 
+
+38. 개발자의 실수에 의해서 발생할 수 있는 예외들로써, 예외처리를 하지 않아도 되는 Exception 클래스는?
+  RuntimeException
+
+39. 예외를 처리하는 방법 2가지는?
+ try~catcj~문 사용
+메서드에 예외 선언
+
+40. 메서드에 예외를 선언하는 형식을 쓰시오.
+void 메서드명() throws 예외~{}
+ 
+
+41. 기존의 정의된 예외 클래스 외에 필요에 따라 개발자가 새로운 예외 클래스를 정의하여 사용할 수 있다.
+이러한 사용자 정의 예외 클래스를 만드는 형식을 쓰시오.
+class 예외클래스이름 extends Exception {}
+
+ 
+
+42.  컬렉션(Collection)이란?
+데이터 저장을 위해 만들어진 클래스
+
+ 
+
+43. 컬렉션 프레임워크의 핵심 인터페이스 3가지는?
+List, Set, Map
+ 
+
+44. 컬렉션 프레임워크의 핵심 인터페이스를 각각 설명하시오.
+List - 순서 있고 중복허용
+set - 순서 없고 중복 비허용
+map - 키:밸류 묶음.밸류만 중봇 허용
+  
+
+
+
+45. (  제네릭스   )는 컬렉션에 저장할 객체의 타입을 지정하여 
+지정한 타입의 객체만 해당 컬렉션에 저장할 수 있으며,
+꺼낼 때는 자동으로 형변환해준다.
+
+
+46. Boxing이란?
+ 기본형을 참조형으로 변환하는 것
+
+47.  Set<E> 인터페이스를 구현하는 컬렉션 클래스인 HashSet에 대해 설명하시오.
+데이터 순서x
+데이터 중복x
+ 
+
+48. 컬렉션에 저장된 요소를 접근하는데 사용되는 인터페이스는 (   Iterator  ) 이고,
+구 버전은  ( Enumeration  ) 이며, 컬렉션 프레임워크가 만들어지기 이전에 사용하던 것이다.
+
+
+49. Map<K, V> 인터페이스를 구현하는 컬렉션 클래스는 (    hashmap  ) 이다.
+ Map에 대해 설명하시오.
+
+ 
+
+50. HashMap의 구버전인 Hashtable을 상속받아 구현한 컬렉션이 무엇인지 쓰고, 특징을 설명하시오
+ Properties -> 두 개의 String 형태로 저장한다
+
+
+51.  "c:\mall\upload\abc.txt" 을 폴더, 화일명, 확장자를 구분하여 화면 출력하는 코드를 작성하시오.
+lastIndexOf(), substring() 메서드 이용
+		String str3 ="c:\\mall\\upload\\abc.txt";
+		int dot = str3.lastIndexOf(".");
+		int dollor = str3.lastIndexOf("\\");
+		String folder = str3.substring(0, dollor);
+		String name = str3.substring(dollor+1, dot);
+		String type = str3.substring(dot+1);
+		System.out.println("폴더:"+folder);
+		System.out.println("파일명:"+name);
+		System.out.println("확장자:"+type);
+
+ 
+
+52. Calendar 클래스의 객체 생성 방법 2가지를 쓰시오.
+1) Calendar cal = Calendar.getInstance();
+2) Calendar cal =new GreorianCalender();
+ 
+
+
+53. Calendar를 Date로 변환하는 코드를 작성하시오.
+Date d = new Date(); 
+Calendar cal = Calendar.getInstance(); 
+cal.setTime(d);
+ 
+
+54. 2017년 1월 1일부터 오늘까지 몇 일이 경과했는지 구하는 코드를 작성하시오.
+getTimeInMillis()  이용
+		Calendar date1 = Calendar.getInstance();
+		Calendar date2 = Calendar.getInstance();
+
+		date1.set(2017, 0, 1);
+
+		long difference =(date2.getTimeInMillis() - date1.getTimeInMillis())/1000;  //초
+		System.out.println("date1과 date2의 차이(일) :  "+ difference/(24*60*60) +"일");
+
+ 
+
+55. 오늘부터 7개월 후의 날짜를 구하는 코드를 작성하시오.
+add() 이용
+	Calendar date = new GregorianCalendar();
+	date.add(Calendar.MONTH, 7);
+	System.out.println(showDate(date));
+ 
+
+56. 천단위 구분기호가 표시되도록 코드를 작성하시오.
+
+class  JavaExam2{
+	public static void main(String[] args) {
+		DecimalFormat df = new DecimalFormat("#,###");
+		String s = df.format(123456.723456);
+		System.out.println(s); 
+
+	}
+}
+ 
+
+57. 오늘 날짜를 아래 형태대로 출력하는 코드를 작성시오
+SimpleDateFormat 이용
+
+2017-09-25 15:20:40 월요일
+	SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss E요일");		
+	Date today=new Date();
+	String s = df.format(today);
+	System.out.println(s);
+
+ 
+
+58. String 클래스는 변경이 불가능한 문자열의 표현을 위한 클래스이다.
+String 클래스의 단점을 보완하기 위해서 나온 클래스인 ( StringBuffer ) 나 ( StringBuilder  ) 는 
+변경이 가능한 문자열의 표현을 위한 클래스로써, 문자열을 더하더라도 새로운 객체를 생성하지 않는다.
++ 기호를 사용하는 것이 아니라 ( append  ) 메서드를 사용한다.
+
+
+59. String 클래스는 다음 원칙을 기준으로 인스턴스가 생성되도록  String 클래스를 정의하였다.
+문자열이 동일한 경우에는 (     하나의 String만 만들어 공유     )
+
+
+60. (1), (2)에 코드를 완성하시오.
+
+import java.util.*; 
+
+class StringTokenizerTest1 { 
+      public static void main(String[] args) { 
+		String source = "100,200,300,400";
+		
+		//(1) StringTokenizer를 이용하여 ,를 구분자로 분리하여 출력
+		StringTokenizer st = new StringTokenizer(source, ",");
+		
+		while(st.hasMoreTokens()) {
+			System.out.println(st.nextToken());
+		}
+ 
+		//(2) split() 메서드를 이용하여 동일 결과가 나오도록 할 것
+		String[] arr = source.split(",");
+		for(String n:arr) {
+			System.out.println(n);
+		}
+
+       } 
+}
+
+61.  맞으면 O, 틀리면 X 를 표시하시오.
+- 같은 인스턴스라면 hashCode 메서드를 호출했을 때의 결과값인 해시코드도 같아야 한다. (     ) 
+- 서로 다른 인스턴스는 서로 다른 해시코드값을 가진다. (   ) 
+- String 클래스는 문자열의 내용이 같으면, 동일한 해시코드를 반환하도록 hashCode 메서드를 오버라이딩하였다. (   )
+
+
+62. 내부 클래스란?
+ 클래스 안에서 선언된 클래스
+
+63. 내부 클래스의 종류 3가지를 쓰시오
+ 인스턴스, 스태틱, 로컬 클래스
+
+64. 익명 클래스란?
+ 이름이 없는 클래스. 바로 생성해서 바로 사용한다
+
+65. 익명 클래스를 만드는 형식을 쓰시오.
+new 부모클래스이름{~~}
+
+new 구현인터페이스이름{~~}
+
+66. 아래 코드의 내부 클래스를 익명클래스로 변경하시오.
+
+class Anonymous2 extends Frame{ 
+	Button btn;	
+	public Anonymous2(){
+		btn=new Button("닫 기");
+		add(btn,"South");
+		btn.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+	} 
+
+
