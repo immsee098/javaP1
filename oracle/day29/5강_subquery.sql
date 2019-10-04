@@ -590,7 +590,367 @@ order by DEPARTMENT_id desc; --107
     all 이용 (emp)
 3. ALL없이 결과값 출력 <= MIN함수를 써서
 4. sales부서에 근무하는 사원 데이터 조회(emp, dept)
-
 */
 
-                                                                
+--[2019-10-04 금]
+select HIREDATE from emp
+where job='MANAGER';
+
+select * from emp
+where hiredate <all (select HIREDATE from emp
+                        where job='MANAGER');  
+
+select * from emp
+where hiredate < (select min(HIREDATE) from emp
+                        where job='MANAGER');  
+                        
+select * from emp;
+select * from dept;
+ 
+select deptno from dept
+where dname='SALES'; --30
+
+select * from emp
+where deptno=30;
+
+select * from emp
+where deptno=(select deptno from dept
+                where dname='SALES');
+
+select * from emp a
+where exists (select deptno from dept b
+                where dname='SALES' and a.DEPTNO=b.DEPTNO);   
+
+--각 부서에 해당하는 사원수 구하기
+--dept, emp
+select * from dept;  --main
+select * from emp;
+     
+select count(*) from emp
+where deptno=10; --3  
+
+select deptno, dname, loc, 
+    (select count(*) from emp b
+        where b.deptno=a.deptno) "사원수"
+from dept a; 
+
+--학과별 교수의 인원수, 백분율 구하기
+select * from professor;
+
+select deptno, count(*), 
+    round(count(*)/(select count(*) from professor)*100,2) "백분율"
+from professor
+group by deptno
+order by deptno;
+
+select count(*) from professor; --18
+
+--employees에서 job_id별 salary 합계 금액이 전체 급여 금액에서 차지하는 비율 구하기
+select job_id, sum(salary), 
+    round(sum(salary)/(select sum(salary) from employees)*100,2) RATIO
+from employees
+group by job_id;
+
+select sum(salary)
+from employees; --691416
+
+--employees에서 사원번호,이름,매니저아이디,매니저이름, 급여레벨을 조회
+--매니저 이름은 manager_id가 null인 경우에는 사장으로
+--급여레벨 - salary가 5000미만이면 하, 5000~10000 이면 중, 10001~20000이면 상
+--나머진 특상
+--case 이용
+select employee_id, first_name, manager_id, salary,
+    case when manager_id is null then '사장'
+    else
+        (select first_name from employees b 
+            where a.manager_id=b.EMPLOYEE_ID) end "매니저이름",
+    case when salary<5000 then '하'
+         when salary between 5000 and 10000 then '중'
+         when salary between 10001 and 20000 then '상'
+         else '특상' end "급여레벨"             
+from employees a;
+
+--의사컬럼(pseudoColumn), 모조 컬럼, 유령컬럼
+/*
+    테이블에 있는 일반적인 컬럼처럼 행동하기는 하지만, 실제로 테이블에 저장되어 있지 
+    않은 컬럼
+    
+    [1] ROWNUM : 쿼리의 결과로 나오는 각각의 row들에 대한 순서값을 가리키는 의사컬럼
+    - 주로 특정 개수나 그 이하의 row를 선택할 때 사용됨
+    
+    [2] ROWID : 테이블에 저장된 각각의 row들이 저장된 주소값을 가진 의사컬럼
+    - 모든 테이블의 모든 row들은 오직 자신만의 유일한 rowid값을 갖고 있다
+*/
+select rownum, empno, ename, sal, rowid as "ROW_ID"
+from emp;  
+
+--emp 테이블 전체에서 상위 5건의 데이터 조회
+select rownum, empno, ename, sal
+from emp
+where rownum<=5;
+
+--order by이용, emp에서 ename순으로 정렬한 상태에서 상위 5건 조회
+select rownum, empno, ename, sal
+from emp
+order by ename;  --rownum 순서가 뒤바뀜
+
+--inline view 이용
+select rownum, A.*
+from
+(
+    select empno, ename, sal
+    from emp
+    order by ename
+) A
+where rownum<=5; 
+
+--student에서 height순서대로 상위 7명의 학생 조회
+select rownum, studno, name, grade, height 
+from student
+order by height;
+
+select rownum, studno, name, grade, height 
+from(
+    select studno, name, grade, height 
+    from student
+    order by height
+)
+where rownum<=7;   
+
+--employees 에서 salary를 정렬해서 급여를 많이 받는 상위 5건만 조회
+select rownum, employee_id, first_name, salary
+from employees
+order by salary desc; 
+
+select rownum, A.*
+from
+(
+    select  employee_id, first_name, salary
+    from employees
+    order by salary desc
+)A
+where rownum<=5; 
+
+--상위에서 2~4 사이인 데이터 조회
+select rownum, A.*
+from
+(
+    select  employee_id, first_name, salary
+    from employees
+    order by salary desc
+)A
+where rownum>=2 and rownum<=4;  --결과값이 안 나옴
+--=> rownum을 1부터 사용하지 않았기 때문
+--rownum은 반드시 1이 포함되어야 결과가 나옴
+
+select rownum AS RNUM, A.*
+from
+(
+    select  employee_id, first_name, salary
+    from employees
+    order by salary desc
+)A
+where RNUM>=2 and RNUM<=4; --error
+
+--inline view를 한번 더 사용
+select A.*
+from
+(
+    select rownum AS RNUM, employee_id, first_name, salary
+    from
+    (
+        select  employee_id, first_name, salary
+        from employees
+        order by salary desc
+    )
+)A
+where RNUM>=2 AND RNUM<=4;
+
+/*
+각 학과에 해당하는 교수의 수 구하기
+각 학과에 해당하는 학생수 구하기
+department , student 테이블
+
+Professor 테이블에서 월급을 많이 
+    받는 교수 순으로 10명 조회하기
+    
+5. 평균급여보다  급여를 많이 받는 사원 데이터 가져오기(emp)    
+*/
+select deptno, dname, part, 
+    (select count(*) from professor b
+        where b.deptno=a.deptno) "교수의 수"
+from department a;
+
+select count(*) from professor
+where deptno=101;
+                   
+select deptno, dname, part, 
+    (select count(*) from student b
+        where b.deptno1=a.deptno) "학생의 수"
+from department a;  
+
+select profno, name, pay from professor
+order by pay desc;
+
+select rownum, A.*
+from(
+    select profno, name, pay from professor
+    order by pay desc
+)A
+where rownum<=10;
+
+
+select avg(nvl(sal,0)) from emp; --2073
+
+select * from emp
+where sal > (select avg(nvl(sal,0)) from emp);
+
+--inline view
+--employees에서 사원정보를 조회하고, job_id별 평균급여도 조회
+select * from employees;    
+
+select job_id, avg(nvl(salary,0)) "평균급여"
+from employees
+group by job_id; 
+
+--테이블과 inline view간의 join
+select e.*, A.평균급여
+from employees e join (
+    select job_id, avg(nvl(salary,0)) "평균급여"
+    from employees
+    group by job_id ) A
+on e.JOB_ID = A.JOB_ID;   
+
+--로그인 처리
+select * from member;
+
+select case
+        ( select count(*) from member
+          where id='simson' and passwd='a1234')
+       when 1 then '로그인 성공'
+       else '로그인 실패'
+       end "로그인"
+from dual;
+       
+--
+select case
+        (select count(*) from member
+            where id='simson' and passwd='a1234')
+       when 1 then '로그인 성공'
+       else
+            case (select count(*) from member
+                    where id='simson')
+            when 1 then '비밀번호 불일치'
+            else 
+                '해당 아이디가 존재하지 않음'
+            end
+        end "로그인"        
+from dual;   
+
+--사용자로부터 입력값 받아와서 처리하기
+ select case
+        (select count(*) from member
+            where id=:id and passwd=:pwd)
+       when 1 then '로그인 성공'
+       else
+            case (select count(*) from member
+                    where id=:id)
+            when 1 then '비밀번호 불일치'
+            else 
+                '해당 아이디가 존재하지 않음'
+            end
+        end "로그인"        
+from dual;   
+
+--decode 이용
+select decode((select count(*) from member
+            where id=:id and passwd=:pwd),1,'로그인 성공',
+            decode((select count(*) from member
+                    where id=:id),1,'비밀번호 불일치','해당 아이디 없다' ))
+       "로그인" 
+from dual;
+
+--gogak 에서 10대, 30대 남자 조회
+select gname, jumin,
+    case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end
+    "성별",
+    to_char(sysdate, 'yyyy')-
+    (substr(jumin,1,2) 
+      + case when substr(jumin,7,1) in ('1','2') then 1900 else 2000 end)
+    +1 "나이",
+    trunc(to_char(sysdate, 'yyyy')-
+    (substr(jumin,1,2) 
+      + case when substr(jumin,7,1) in ('1','2') then 1900 else 2000 end)
+    +1, -1) "연령대"
+ from gogak
+ where "성별"='남자' ; --error
+ 
+ --inline view 이용
+ select A.*
+ from
+ (
+    select gname, jumin,
+        case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end
+        "성별",        
+        trunc(to_char(sysdate, 'yyyy')-
+        (substr(jumin,1,2) 
+          + case when substr(jumin,7,1) in ('1','2') then 1900 else 2000 end)
+        +1, -1) "연령대"
+     from gogak
+ ) A
+ where A."성별"='남자' and A.연령대 in (10,30);
+ 
+--gogak에서 연령대별 인원수와 백분율 조회
+ select A.연령대, count(*), count(*)/(select count(*) from gogak)*100 "백분율"
+ from
+ (
+    select gname, jumin,
+        case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end
+        "성별",        
+        trunc(to_char(sysdate, 'yyyy')-
+        (substr(jumin,1,2) 
+          + case when substr(jumin,7,1) in ('1','2') then 1900 else 2000 end)
+        +1, -1) "연령대"
+     from gogak
+ ) A
+ group by A."연령대";
+ 
+ 
+  select A.연령대, count(*), count(*)/(select count(*) from gogak)*100 "백분율"
+ from
+ (
+    select gname, jumin,
+        case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end
+        "성별",        
+        trunc(to_char(sysdate, 'yyyy')-
+        (substr(jumin,1,2) 
+          + case when substr(jumin,7,1) in ('1','2') then 1900 else 2000 end)
+        +1, -1) "연령대"
+     from gogak
+ ) A
+ group by rollup(A."연령대")
+ order by A."연령대";
+ 
+ --학과별, 성별 평균키 구하기
+   --student 테이블 이용
+   
+   select *
+   from student;
+   
+   select deptno1, round(avg(height), 2) "평균키", decode(grouping(case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end), 1, '평균', case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end) "성별"
+   from student
+   group by rollup(deptno1, case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end);
+   
+   
+   select deptno1, A.성별, avg(height)"평균키"
+   from(
+    select deptno1, round(avg(height), 2) "평균키", case when substr(jumin,7,1) in ('1','3') then '남자' else '여자' end "성별"
+    from student
+   ) A
+   
+   group by deptno1, A.성별
+   order by deptno1, A.성별;
+   
+   --job_history의 정보를 조회하되, job_id에 해당하는 job_title, 
+   --department_id에 해당하는 부서명도 조회
+   --job_history, jobs, department
