@@ -1,0 +1,237 @@
+[ java 16강 - 1차 테스트]
+
+1. JDBC(Java Database Connectivity)란?
+
+
+2. 오라클 JDBC 드라이버는 (          ).jar 이다.
+
+
+3. tnsnames.ora, listener.ora 와 같은 오라클 설정정보를 확인하여 host명과 port 등을
+자바소스에서 String url  = "jdbc:oracle:thin:@(                       )";
+과 일치시켜야 한다.
+
+
+4. JDBC 프로그래밍 순서를 완성하시오.
+1) 데이터베이스와 연결하는 드라이버 클래스 찾기(드라이버 로딩)
+2) (    데이터베이스 서버와 연결하기 위한 Connection 객체 생성    )
+3) (   sql 문장을 처리할 PreparesStatement 객체 생성    ) 
+4) (     executequery를 이용해 실행     )
+5) ResultSet 객체를 통한 Query 결과 처리
+6) 접속 종료(자원 반납)
+
+
+5.  select 문일 경우 ResultSet의 논리적 커서를 이동시키면서 각 컬럼의 데이터를 꺼내온다.
+커서는 맨 처음에 (    첫번째 행 직전      )에 위치하고 있다가, next()가 호출되면 다음 행으로 이동한다.
+
+
+6. mem 테이블에 insert하는 코드를 작성하시오.
+insert에 필요한 값은 사용자로 부터 입력받아 처리한다.
+package com.java1017;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class InsertTest {
+
+	public static void main(String[] args) {
+		//INSERT
+		Scanner sc = new Scanner(System.in);
+		System.out.println("이름, 전번 입력!");
+		String name = sc.nextLine();
+		String tel = sc.nextLine();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		try {
+			
+			Class.forName("oracle.jdbc.driver.OracleDriver"); 
+			
+			System.out.println("드라이버 로딩 성공");
+			
+			String url = "jdbc:oracle:thin:@DESKTOP-IA9SFNU:1521:XE";
+			String user ="testuser", pwd="testuser123";
+			con = DriverManager.getConnection(url, user,pwd);
+			System.out.println("db연결 성공");
+			
+			String sql = "insert into mem(no, id, pwd,name, hp)\r\n" + 
+					"values(mem_seq, ?, ?, ?, ?);\r\n" + 
+					"";
+			ps = con.prepareStatement(sql);
+	
+			ps.setString(1, name);
+			ps.setString(2, id);
+			ps.setString(3, pwd);
+			ps.setString(4, name);
+			ps.setString(5, tel);
+			
+			int cnt = ps.executeUpdate(); 
+
+			
+			
+		} catch(ClassNotFoundException e) {
+			System.out.println("class not found!");
+			e.printStackTrace();
+		} catch(SQLException e) {
+			System.out.println("sql예외!");
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null) ps.close();
+				if(con!=null) con.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+
+
+
+7.  mem 테이블에 update하는 코드를 작성하시오.
+update에 필요한 값은 사용자로 부터 입력받아 처리한다.
+
+package com.java1017;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Scanner;
+
+public class InsertTest {
+
+	public static void main(String[] args) {
+		//INSERT
+		Scanner sc = new Scanner(System.in);
+		System.out.println("이름, 전번 입력!");
+		String name = sc.nextLine();
+		String tel = sc.nextLine();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			
+			Class.forName("oracle.jdbc.driver.OracleDriver"); 
+			
+			System.out.println("드라이버 로딩 성공");
+			
+			String url = "jdbc:oracle:thin:@DESKTOP-IA9SFNU:1521:XE";
+			String user ="testuser", pwd="testuser123";
+			con = DriverManager.getConnection(url, user,pwd);
+			System.out.println("db연결 성공");
+			
+			String sql = "update mem\r\n" + 
+					"set name=?, hp=?\r\n" + 
+					"where no = ?";
+			ps = con.prepareStatement(sql);
+	
+	
+			ps.setString(1, name);
+			ps.setString(2, hp);
+			int cnt = ps.executeUpdate();
+			
+			
+			
+		} catch(ClassNotFoundException e) {
+			System.out.println("class not found!");
+			e.printStackTrace();
+		} catch(SQLException e) {
+			System.out.println("sql예외!");
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null) ps.close();
+				if(con!=null) con.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
+
+
+
+8. mem 테이블에서 id로 조회하는 코드를 작성하시오.
+id는 사용자로 부터 입력받아 처리한다.
+
+
+
+package com.java1017;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.util.Scanner;
+
+public class InsertTest {
+
+	public static void main(String[] args) {
+		//INSERT
+		Scanner sc = new Scanner(System.in);
+		System.out.println("이름, 전번 입력!");
+		String name = sc.nextLine();
+		String tel = sc.nextLine();
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs=null;
+		try {
+			
+			Class.forName("oracle.jdbc.driver.OracleDriver"); 
+			
+			System.out.println("드라이버 로딩 성공");
+			
+			String url = "jdbc:oracle:thin:@DESKTOP-IA9SFNU:1521:XE";
+			String user ="testuser", pwd="testuser123";
+			con = DriverManager.getConnection(url, user,pwd);
+			System.out.println("db연결 성공");
+			
+			String sql = "select * from mem where id=?";
+			ps = con.prepareStatement(sql);
+	
+	
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				int no = rs.getInt("no");
+				String id = rs.getString("id");
+				String pwd=rs.getString("pwd");
+				String name = rs.getString("name");
+				String pwd=rs.getString("hp");
+				Timestamp regdate2 = rs.getTimestamp("regdate");
+				
+			}
+			
+			
+		} catch(ClassNotFoundException e) {
+			System.out.println("class not found!");
+			e.printStackTrace();
+		} catch(SQLException e) {
+			System.out.println("sql예외!");
+			e.printStackTrace();
+		} finally {
+			try {
+				if(ps!=null) ps.close();
+				if(rs!=null) rs.close();
+				if(con!=null) con.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+}
