@@ -1,0 +1,166 @@
+[ java 16강 - 2차 테스트]
+1. DAO란
+데이터베이스 작업 CRUD 작업하는 객체
+
+2. DTO란
+데이터 전달/관리 단위
+
+3. BookDTO 클래스 작성하기
+4. BookDAO 클래스에
+	updateBook() : 수정
+	selectByTitle() : 책제목으로 조회하는 메서드 작성
+
+public int updatBook(BookDTO dto) throws SQLException {
+		
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		try {
+			con = DBUtil.getConnection();
+			String sql = "update pd\r\n" + 
+					"set name=?\r\n" + 
+					"where no =?";
+			ps = con.prepareStatement(sql);
+		
+			ps.setString(1, dto.getName());
+			ps.setInt(2, dto.getNo());
+		
+			int cnt = ps.executeUpdate();
+			System.out.println("책 수정 결과 cnt="+cnt);
+			
+			return cnt;
+			
+		} finally {
+			DBUtil.dbClose(ps, con);
+		}
+	}
+
+public ArrayList<BookDTO> selectByTitle(String Name) throws SQLException {
+		Connection con=null;
+		PreparedStatement ps=null;
+		ResultSet rs=null;
+		
+		ArrayList<BookDTO> alist = new ArrayList<BookDTO>();
+		try {
+			con=DBUtil.getConnection();
+		
+			String sql="select * from pd where name=? ";
+			ps=con.prepareStatement(sql);
+			
+			ps.setString(1, Name);
+
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				int no=rs.getInt("no");
+				String name = rs.getName("name");
+				Timestamp regdate=rs.getTimestamp("regdate");
+		
+				BookDTO dto = new BookDTO(no, Name, regdate);
+			
+				alist.add(dto);
+			}
+			
+			System.out.println("제목 조회 결과 alist.size="+alist.size());
+			
+			return alist;
+		}finally {
+			DBUtil.dbClose(rs, ps, con);
+		}
+	}
+
+5. BookConsole 에서 각 메서드 호출
+
+
+
+[ java 17강 - 1차 테스트]
+
+1. 맞으면 O 틀리면 X 를 표시하시오.
+- AWT란 Window프로그래밍 (GUI 프로그래밍)을 하기 위한 도구이다. (  O )
+- AWT는 GUI 어플리케이션의 개발에 필요한 여러 개의 관련 패키지와 클래스의 집합으로 구성되어 있다. ( X ) 
+- GUI(Graphic User Interface)란 키보드로 명령을 내리고 결과가 문자로 표시되는 단순한 형태이다. ( O  )
+
+2. 맞으면 O 틀리면 X 를 표시하시오.
+- AWT 는 해당 OS의 컴포넌트(native component)를 사용하기 때문에 AWT로 작성된 GUI 어플리케이션의 외양이 
+실행되는 OS마다 달라질 수 있다. (  O  ) 
+- 여러 종류의 GUI 기반의 OS 들이 공통적으로 가지고 있는 컴포넌트로 구성되어 있고
+AWT가 제공할 수 있는 GUI 컴포넌트의 수는 제한적이지 않다. ( X ) 
+- Swing은 AWT를 확장한 것으로 AWT와는 달리 순수한 자바로 이루어져 있어서 
+AWT보다 다양하고 풍부한 기능의 컴포넌트를 제공한다. ( O )
+- Swing의 클래스들이 AWT의 클래스들을 기반으로 만들어진 자손 클래스들이므로 
+AWT와 Swing은 컴포넌트의 종류와 사용법만 조금 다를 뿐 나머지는 거의 같다 ( O )
+
+
+3. AWT를 이용한 GUI 어플리케이션을 작성하는데 필요한 기본적인 클래스와 컴포넌트를 제공하는 패키지는?
+ [ java 16강 - 2차 테스트]
+1. DAO란
+데이터베이스 작업 객체 
+CRUD담당
+
+2. DTO란
+데이터의 객체 표현 단위
+
+3. BookDTO 클래스 작성하기
+4. BookDAO 클래스에
+	updateBook() : 수정
+	selectByTitle() : 책제목으로 조회하는 메서드 작성
+
+5. BookConsole 에서 각 메서드 호출
+
+
+
+[ java 17강 - 1차 테스트]
+
+1. 맞으면 O 틀리면 X 를 표시하시오.
+- AWT란 Window프로그래밍 (GUI 프로그래밍)을 하기 위한 도구이다. (O  )
+- AWT는 GUI 어플리케이션의 개발에 필요한 여러 개의 관련 패키지와 클래스의 집합으로 구성되어 있다. ( O ) 
+- GUI(Graphic User Interface)란 키보드로 명령을 내리고 결과가 문자로 표시되는 단순한 형태이다. ( X  )
+
+2. 맞으면 O 틀리면 X 를 표시하시오.
+- AWT 는 해당 OS의 컴포넌트(native component)를 사용하기 때문에 AWT로 작성된 GUI 어플리케이션의 외양이 
+실행되는 OS마다 달라질 수 있다. ( O ) 
+- 여러 종류의 GUI 기반의 OS 들이 공통적으로 가지고 있는 컴포넌트로 구성되어 있고
+AWT가 제공할 수 있는 GUI 컴포넌트의 수는 제한적이지 않다. (X ) 
+- Swing은 AWT를 확장한 것으로 AWT와는 달리 순수한 자바로 이루어져 있어서 
+AWT보다 다양하고 풍부한 기능의 컴포넌트를 제공한다. ( O )
+- Swing의 클래스들이 AWT의 클래스들을 기반으로 만들어진 자손 클래스들이므로 
+AWT와 Swing은 컴포넌트의 종류와 사용법만 조금 다를 뿐 나머지는 거의 같다 ( O )
+
+
+3. AWT를 이용한 GUI 어플리케이션을 작성하는데 필요한 기본적인 클래스와 컴포넌트를 제공하는 패키지는?
+  java.awt
+
+4. GUI 어플리케이션에서 발생하는 이벤트를 처리하는데 필요한 클래스와 인터페이스를 제공하는 패키지는?
+ java.awt.event
+
+5. 메뉴와 관련된 컴포넌트들을 제외한 모든 컴포넌트의 조상은?
+Component
+
+6. 메뉴관련 컴포넌트의 최상위 조상은?
+Object 
+
+7. 컨테이너는 다른 컴포넌트들을 포함할 수 있어서 Button, Label 과 같은 컴포넌트들을 포함할 수 있다.
+독립적으로 사용될 수 있으며, 다른 컴포넌트나 종속적인 컨테이너를 포함할 수 있는 독립적인 컨테이너에는
+(    frame  ), (    window      ), (  dialog    ) 가 있고,
+독립적으로 사용될 수 없으며, 다른 컨테이너에 포함되어야만 하는 종속적인 컨테이너에는
+(  panel  ), (    ScrollPane ) 이 있다.
+
+8.  맞으면 O 틀리면 X 를 표시하시오.
+- Panel은 Frame과 같이 다른 컴포넌트를 자신의 영역 내에 포함시킬 수 있는 컨테이너이다. ( O)
+- 동시에 Panel 자신이 다른 컨테이너에 포함될 수 있기도 하다. ( O ) 
+- Panel 이 Panel 에 포함되는 것은 불가능하다. (  X )
+
+
+9. 메뉴 만드는 방법을 완성하시오.
+Menu에 (    MenuItem    )들을 추가한다.
+(    MenuVar      )에 Menu를 추가한다.
+Frame에 (    MenuBar      ) 를 포함시킨다.
+
+
+10. 맞으면 O 틀리면 X 를 표시하시오.
+- MenuBar에는 Menu만 포함될 수 있다. MenuItem은 포함시킬 수 없다. ( O )
+- Menu에는 MenuItem만 포함될 수 있고, Menu는 포함될 수 없다. ( X )
+- 계층형 menu를 만들고자 할 때는 Menu에 Menu를 포함시키면 된다. ( O  ) 
+
+
+
+
