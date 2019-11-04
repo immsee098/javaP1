@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>formTest1.html</title>
+</head>
+<body>
+	<!-- form태그 - 사용자의 입력값을 서버의 특정 페이지로 전달 
+	반드시 form태그 사이에 입력태그들이 들어가야 함
+	
+	action - 서버페이지 지정
+	method - get, post
+	[1] get - 사용자가 입력한 값들이 url 주소의 뒤에 붙어서 전송됨
+	보안에 취약함, 최대 2kb까지만 가능
+	[2] post - 사용자가 입력한 값들이 http 헤더안에 숨겨져서 전송됨
+	보안에 좋다, 용량 제한이 없다	
+	-->
+	<form action="a.jsp" method="post" name="frmTest">
+		아이디 : <input type="text" name="userid"><br>
+		비밀번호 : <input type="password" name="pwd"><br><br>
+		<input type="submit"> 
+	</form>
+	
+</body>
+</html>
+
+
+
+
+
