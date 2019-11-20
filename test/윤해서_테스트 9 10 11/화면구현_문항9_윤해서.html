@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>9번</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#chkAll").click(function(){
+                if($("#chkAll").prop("checked")){
+                    $("input[type=checkbox]").prop("checked", true);
+                } else {
+                    $("input[type=checkbox]").prop("checked", false);
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <fieldset>
+        <legend>All에 따라 하위 체크박스도 체크되거나 체크가 해제되도록 해주세요</legend>
+        <input type="checkbox" id="chkAll" /><label for="chkAll">All</label>
+        <div class="target01">
+            <input type="checkbox" id="chk1" /><label for="chk1">java</label>
+            <input type="checkbox" id="chk2" /><label for="chk2">jsp</label>
+            <input type="checkbox" id="chk3" /><label for="chk3">jquery</label>
+        </div>
+    </fieldset>   
+</body>
+</html>

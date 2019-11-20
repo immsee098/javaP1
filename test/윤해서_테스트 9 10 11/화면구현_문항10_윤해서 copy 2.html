@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10번</title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("button").click(function(){
+                $("#target02").css("background-color", "yellow");
+            });
+        });
+    </script>
+</head>
+<body>
+    <fieldset>
+        <legend>id가 target02인 요소의 배경색을 노랑색으로 변경하세요.</legend>
+        <button>배경색 변경하기</button>
+        <div id="target02">
+            <i>안녕하세요</i>
+        </div>
+    </fieldset>
+</body>
+</html>

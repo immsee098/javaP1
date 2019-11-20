@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style type="text/css">
+        #acc h3 { background: skyblue;}
+        #acc div {
+            border: 1px solid gray;
+            height: 100px;
+        }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".off").next().slideUp();
+            $(".on").next().slideDown();
+
+            //둘 다 되기는 하는데 어떤 코드를 쓰라고 하는건지 파악이 안 돼서 둘 다 써둡니다
+
+            //1.
+            $("h3").click(function(){
+                $("h3").not(this).next().slideUp(200);
+                $(this).next().slideDown(600);
+        
+            });
+
+            //2.
+            // $("h3").click(function(){
+            //     $(this).removeClass("off").addClass("on");
+            //     $("h3").not(this).removeClass("on").addClass("off");
+            //     $(".off").next().slideUp(200);
+            //     $(".on").next().slideDown(600);
+
+            // });
+
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <h3 class="on">제목1</h3>
+        <div><p>내용1</p></div>
+        <h3 class="off">제목2</h3>
+        <div><p>내용2</p></div>
+        <h3 class="off">제목3</h3>
+        <div><p>내용3</p></div>
+    </div>
+</body>
+</html>
