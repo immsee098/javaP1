@@ -1,4 +1,4 @@
-create or replace procedure  --프로시저 이름 
+create or replace procedure delete_reboard  --프로시저 이름 
 (
 --매개변수
 

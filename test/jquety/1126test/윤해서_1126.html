@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>UI테스트(홀수형)</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="answer.js"></script>
+<link rel="stylesheet" href="jqtest.css">
+<script type="text/javascript">
+//함수명은 반드시 지켜주세요.
+//body에 있는 내용은 수정하지 않습니다.
+
+$(document).ready(function(){
+	
+	$("button").click(function(e){
+		//var a = $("button").html();
+		var a = $(e.target).html();
+		if(a=="target01"){
+			$("#target01").css("background", "yellow");
+		} else if(a=="target03"){
+			$("#target03 span").clone().appendTo("#target03");
+		} else if(a=="target05"){
+			$(".target05 button").attr("disable", "disable");
+		} else if(a=="target07"){
+			$("#parent1 #child").appendTo("#parent2");
+		} else if(a=="target09"){
+			setTimeout(function(){
+				$(".target09").css("font-size", "15").css("font-family", "Castellar");
+			}, 2000)
+		} else if(a=="target11"){
+			$("#target11").children().not("h2").remove();
+		} else if(a=="target13"){
+			setInterval(function(){
+				var a = $("#target13 input[type=text]").val();
+				a++;
+				$("#target13 input[type=text]").val(a);
+			},1000);
+		}
+		
+	});
+});
+
+</script>
+</head>
+<body>
+<h2>jQuery Test</h2>
+<fieldset>
+	<legend>1.#target01의 배경색을 변경하세요.</legend>
+	<button onclick="target01()">target01</button>
+	<div id="target01">
+		<i>#target01</i>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>3.#target03안의 span 태그를 복사하여 다음위치에 추가하세요.</legend>
+	<button onclick="target03()">target03</button>
+	<div id="target03">
+	<i>#target03</i><br/><br/>
+		<span style="background:orange;">span</span>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>5.button을 disable 시켜주세요.</legend>
+	<button onclick="target05()">target05</button>
+	<div class="target05"><i>.target05</i>
+		<button>난 버튼이야</button>
+	</div>
+</fieldset>
+
+<fieldset id="fieldset7">
+	<legend>7.#parent1의 #child를 #parent2로 이동시키세요.</legend>
+	<button onclick="target07()">target07</button>
+	<div id="parent1"><i>#parent1</i><br/>
+		<div id="child">
+		    #child<br/><br/>
+			날 이동해줘
+		</div>
+	</div>
+	<div id="parent2"><i>#parent2</i><br/>
+		
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>9.2초가 지난뒤에 target09의 자식요소들에 폰트 size를 15pt,폰트체를 "Castellar"변경되도록 작성하세요.</legend>
+	<button onclick="target09()">target09</button>
+	<div class="target09">
+		<i>.target09</i><br/>
+		<b>font1</b><br/>
+		<em>font2</em><br/>
+		<b>font3</b><br/>
+		<sub>font4</sub>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>11.#target11의 자식요소들중에 h2태그를 제외한 모든 요소를 삭제하세요. </legend>
+	<button onclick="target11()">target11</button>
+	<div id="target11">
+		<i>#target11</i>
+		<h1>h1</h1>
+		<h2>h2(난 지우지마!!)</h2>
+		<h3>h3</h3>
+		<h4>h4</h4>
+		<h5>h5</h5>
+	</div>
+</fieldset>
+
+<fieldset>
+	<legend>13.text박스안에 숫자를 1초 간격으로 1씩 증가시켜 주세요.</legend>
+	<button onclick="target13()">target13</button>
+	<div id="target13"><i>#target13</i>
+		<input type="text" name="countview" value="0" size="6"/>
+	</div>
+</fieldset>
+
+
+<br/><br/><br/><br/><br/><br/><br/>
+</body>
+</html>
+
+
+
