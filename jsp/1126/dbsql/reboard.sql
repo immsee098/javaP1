@@ -32,6 +32,6 @@ update reboard
 set downcount = downcount+1 
 where no=2;
 
-exec delete_reboard(2,1,1);
+exec delete_reboard(2,2,0);
 
 

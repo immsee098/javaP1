@@ -1,0 +1,6 @@
+      <Context docBase="mystudy" path="/mystudy" reloadable="true" source="org.eclipse.jst.jee.server:mystudy">
+      	<Resource auth="Container" driverClassName="oracle.jdbc.driver.OracleDriver" 
+	maxActive="20" maxWait="-1" name="jdbc/oracledb" password="herb123" 
+	type="javax.sql.DataSource" url="jdbc:oracle:thin:@aa:1521:xe" 
+	username="herb"/>
+      </Context>
