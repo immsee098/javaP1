@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>Insert title here</title>
+<style type="text/css">
+	fieldset{width:70%; border-radius:10px;}
+	body{margin-left: 20%;}
+</style>
+<script type="text/javascript" src="test_jquery_answer1.js"></script>
+<script type="text/javascript">
+	
+
+</script>
+</head>
+<body>
+<h3>1.숫자 판별하기</h3>
+<small>* 입력란에 값을 입력하고 버튼을 클릭하면 입력값이 숫자인지 아닌지 판별하여 대화창으로 "숫자입니다"/"숫자가 아닙니다" 출력하기</small><br>
+<form name="frmExam" method="post" action="a.jsp">
+<fieldset>
+<legend>숫자입력</legend>
+<input type="text" name="num"><input type="button" value="판별" onclick="numCheck01()">
+</fieldset>
+
+<!-- -----------------------------------------------------------------------------------------------------------  -->
+<h3>2.문자열 검색하기</h3>
+<small>* 입력란에 원하는 검색어를 입력하고 버튼을 클릭하면 검색할 내용에서 검색어가 존재하는지 여부를
+   <br/> 대화창으로 "검색어 존재함"/"검색어존재하지않음" 출력하기</small><br>
+<fieldset>
+<b>검색할 단어:</b><input type="text" id="word"><input type="button" value="검색" onclick="searchStr02()"><br>
+-검색할 내용:
+<pre id="content">
+       삼성전자는 4일(현지시간) 독일 베를린에서 ‘IFA 2013(세계가전박람회)’ 전시회 개막에 앞서 
+     ‘삼성 모바일 언팩’ 행사를 갖고 ‘갤럭시노트3’와 ‘갤럭시기어’ 등을 공개했다.
+       갤럭시노트3는 5.5인치 갤럭시노트2보다 큰 풀HD 슈퍼아몰레드 5.7인치 화면을 탑재했다.
+</pre>
+</fieldset>
+
+<!-- -----------------------------------------------------------------------------------------------------------  -->
+<h3>3.팝업창 띄우기</h3>
+<small>* 라디오버튼을 클릭하면 원하는 사이트를 팝업창에 띄운다.(새로운 창에 이동시킨다.)</small>
+<fieldset>
+	<legend>원하는 사이트를 선택하세요</legend>
+	<input type="radio" name="site" value="http://www.naver.com" onclick="popupWin03(this.value)">네이버<br>
+	<input type="radio" name="site" value="http://www.daum.net" onclick="popupWin03(this.value)">다음<br>
+	<input type="radio" name="site" value="http://www.nate.com" onclick="popupWin03(this.value)">네이트<br>
+</fieldset>
+
+<!-- -----------------------------------------------------------------------------------------------------------  -->
+<h3>4.전체선택버튼 구현하기</h3>
+<small>* 전체선택버튼을 클릭하면 체크항목을 모두 체크하거나 해제시키자.</small>
+<fieldset>
+	<legend>가장 좋아하는 과목은?</legend>
+	<input type="checkbox" name="all" onclick="allchk04(this.checked)">전체선택<br>
+	<input type="checkbox" name="subject">C#<br>
+	<input type="checkbox" name="subject">DataBase<br>
+	<input type="checkbox" name="subject">Script<br>
+	<input type="checkbox" name="subject">ASP
+</fieldset>
+
+<!-- -----------------------------------------------------------------------------------------------------------  -->
+<h3>5. 랜덤숫자생성하기</h3>
+<fieldset>
+	<legend>1~20까지 숫자중 랜덤으로 생성하시오?</legend>
+	출력:<input type="text" id="rdmNum" readonly><input type="button" value="생성" onclick="randomNum05()">
+</fieldset>
+
+<!-- -----------------------------------------------------------------------------------------------------------  -->
+<h3>6.select태그 사용하기</h3>
+<small>* 선택된 항목의 사이트로 페이지 이동하기.(현재창에서 이동한다.)</small>
+<fieldset>
+	<legend>이동할 페이지를 선택하세요</legend>
+	<select name="selsite" onchange="selPage06()">
+		<option value="http://www.naver.com">네이버</option>
+		<option value="http://www.daum.net">다음</option>
+		<option value="http://www.nate.com">네이트</option>
+	</select>
+</fieldset>
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
