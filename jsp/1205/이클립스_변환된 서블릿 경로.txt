@@ -1,0 +1,9 @@
+D:\workspace경로\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\프로젝트이름\org\apache\jsp
+
+D:\lecture\workspace_list\jsp_ws\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost
+
+
+D:\lecture\workspace_list\jsp_ws\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\work\Catalina\localhost\mymvc\org\apache\jsp\tips
+나의 경우 이런 경로
+
+여기서 에러 잡기 가능
