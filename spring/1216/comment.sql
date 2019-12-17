@@ -38,3 +38,11 @@ start with 1
 nocache;
 
 select * from comment2;
+
+insert into comment2(comment_no, user_id, comment_content)
+values(comment2_seq.nextval, 'hong', 'test');
+
+insert into comment2(comment_no, user_id, comment_content)
+values(comment2_seq.nextval, 'kim', 'test2');
+
+commit;
