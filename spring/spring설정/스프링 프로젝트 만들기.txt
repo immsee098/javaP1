@@ -1,0 +1,105 @@
+[스프링 프로젝트 만들기- 최종]
+
+※ Spring MVC 프로젝트 만들기
+New - Spring legacy Project
+- Spring MVC Project
+
+
+[1] 기존 파일 내용 변경
+1. pom.xml 설정
+
+   <properties>
+
+   <dependencies>
+   <repositories>
+   변경
+
+2. root-context.xml 지우기
+ 위치 : \main\webapp\WEB-INF\spring\root-context.xml
+
+3. web.xml 설정하기
+=> root element를 제외하고 모두 지운 후 변경한다
+
+4. servlet-context.xml
+위치 : main\webapp\WEB-INF\spring\appServlet\servlet-context.xml
+=> root element를 제외하고 모두 지운 후 변경한다
+
+=> <context:component-scan base-package="     " 
+=> base-package의 내용을 반드시 변경한다(자신의 패키지로)
+
+5. log4j.xml
+위치: src/main/resources/log4j.xml
+=> root element를 제외하고 모두 지운 후 변경한다
+
+<logger name="       ">
+	<level value="info" />
+</logger>
+
+=> name의 내용을 변경한다.(자신의 패키지로)
+
+
+[2] 파일 추가
+
+6. 공통 스프링 설정파일 추가
+=> src/main/resources에서 패키지 생성
+
+패키지 : config.spring
+파일 : 1) context-common.xml
+
+=> <context:component-scan base-package="      ">
+=> base-package의 내용을 반드시 변경
+
+
+       2) context-database.xml
+=> <bean id="sqlSessionFactoryBean" 
+에서
+<property name="typeAliasesPackage" value="      " />
+의 value를 반드시 변경
+	 
+
+7. 프로퍼티 파일 추가
+=> src/main/resources에서 패키지 생성
+
+패키지 : config.props
+파일 :   database.properties
+
+=> url, username, password를 변경한다.
+
+8. mybatis 설정 파일 추가
+=> src/main/resources에서 패키지 생성
+
+패키지 : config.mybatis.oracle
+파일 : mybatis-config.xml
+
+9. mybatis - 매퍼xml 추가
+=> src/main/resources에서 패키지 생성
+
+패키지 : config.mybatis.mapper.oracle
+파일 : board.xml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
