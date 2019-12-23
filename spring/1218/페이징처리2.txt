@@ -1,0 +1,13 @@
+* 페이지 처리에 필요한 변수
+------------
+한 페이지에 보여줄 레코드 개수 - recordCountPerPage 5 (기존의 pageSize와 동일)
+블럭 사이즈 - blockSize 10 (1~10)
+총 레코드 개수 - totalRecord 총 17건
+총 페이지 개수 - totalPage 총 4 페이지
+------------
+- 현재 페이지를 이용해서 계산하는 변수
+
+현재페이지 - currentPage 17
+블럭의 시작 페이지 - firstPage 1,11,21
+블럭의 마지막 페이지 - lastPage 10, 20, 30
+선택한 페이지의 시작 인덱스 - firstRecordIndex (기존의 curPos과 동일) 0, 5, 10,..

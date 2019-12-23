@@ -1,0 +1,5 @@
+edit.jsp=>BoardEditController => board.xml=>[boardDaoMyBatis=>boardservice/boardserviceImpl
+=>BoardDAO] 
+
+
+[] 안의 담당 업무는 왓다갓다
