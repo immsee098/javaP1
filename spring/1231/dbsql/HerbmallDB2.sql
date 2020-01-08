@@ -4,7 +4,7 @@ CREATE TABLE Cart
 (
   cartNo	number	Primary Key NOT NULL, 	--일련번호
   customerId	VarChar2(20) 
-	  references member2(userid) on delete cascade not null,	 --고객구분번호 : 고유접속번호(세션ID)
+	  references member(userid) on delete cascade not null,	 --고객구분번호 : 고유접속번호(세션ID)
   productNo	number 
 	  references products(productNo) NOT NULL,		--상품고유번호(Product테이블의 ProductNo필드)
   quantity		number NOT NULL,		--수량
@@ -26,7 +26,7 @@ CREATE TABLE Orders
 (
   orderNo		number	NOT NULL Primary Key,   --주문번호
   customerId	varchar2(20) 
-	references member2(userid) NOT NULL ,		--고객고유번호(회원아이디)(FK)
+	references member(userid) NOT NULL ,		--고객고유번호(회원아이디)(FK)
   totalPrice		number Null,			--주문총금액
   deliveryStatus	VarChar2(20) default '입금확인중',		--주문상황_배송상황(1:입금확인중, 2:결제완료, 3:배송중, (배송준비중) 4:배송완료)
   orderDate		Date default sysdate ,		--주문일자
@@ -122,7 +122,7 @@ o.deliveryStatus, o.orderDate, o.deliveryDate,
 o.paymentEndDate,o.message, o.customerName,
 o.hp, o.zipcode, o.address, o.addressDetail,
 m.name 
-from orders o, member2 m
+from orders o, member m
 where o.customerId=m.userid;
 ---------------------------------------
 select * from ordersView
@@ -134,7 +134,7 @@ Select * From cart;
 Select * From orders;
 Select * From orderDetails;
 
-Select * From member2;
+Select * From member;
 
 Select * From products;
 Select * From eventProduct;
