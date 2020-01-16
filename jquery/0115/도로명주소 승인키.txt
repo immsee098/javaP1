@@ -1,0 +1,11 @@
+도로명 주소 검색 api 승인키
+U01TX0FVVEgyMDE3MTIxODE3Mzc0MTEwNzU1Njg=
+
+
+[ XML ]
+http://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=15&keyword=서초&confmKey=U01TX0FVVEgyMDE3MTIxODE3Mzc0MTEwNzU1Njg=
+
+[ JSON ]
+http://www.juso.go.kr/addrlink/addrLinkApi.do?currentPage=1&countPerPage=15&keyword=서초&confmKey=U01TX0FVVEgyMDE3MTIxODE3Mzc0MTEwNzU1Njg=&resultType=json
+
+
